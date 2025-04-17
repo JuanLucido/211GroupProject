@@ -14,8 +14,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +28,7 @@
               "RelativeDocumentMoniker": "CSC211GroupProject\\GroupProject.cpp",
               "ToolTip": "C:\\Users\\Juan\\source\\repos\\CSC211GroupProject\\CSC211GroupProject\\GroupProject.cpp",
               "RelativeToolTip": "CSC211GroupProject\\GroupProject.cpp",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAD8AAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-17T01:38:13.64Z",
               "EditorCaption": ""

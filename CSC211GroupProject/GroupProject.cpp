@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-//THIS FILE AND REPO WAS FIRST PUBLISHED ON 04/17 @ 5:30 pm
+//This is Juan's test branch. Last updated on 04/17 @ 05:34 PM
 
 //void x_int(double a, double b, double c) {
 //	cout << a << 'x' << " + " << b << 'y' << '=' << c;
