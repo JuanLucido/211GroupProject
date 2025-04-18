@@ -28,7 +28,7 @@ public:
 	//	c = c / a;
 	//	cout << " The x intercept is " << c << endl;
 	//
-	// testing234234234 //
+	// testing234234234 dakota's branch//
 	//}
 
 	string f(double m, double b) {
