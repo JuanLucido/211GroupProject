@@ -18,5 +18,13 @@
     <ClCompile Include="GroupProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lineType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lineType.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
