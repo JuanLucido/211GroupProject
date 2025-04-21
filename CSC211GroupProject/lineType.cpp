@@ -4,6 +4,8 @@ using namespace std;
 
 #include "lineType.h"
 
+//poopie
+
 string lineType::f(double m, double b) {
 	//converts to string that way the 'x' can show up in the equation
 	return  to_string(m) + "x + " + to_string(b);
