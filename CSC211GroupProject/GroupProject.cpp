@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-	lineType line;
+	/*lineType line;
 	double m1, b1, m2, b2;
 	while (true) {
 		cout << "Enter the slope and y-intercept of the first line (m1 b1): ";
@@ -33,5 +33,5 @@ int main() {
 	line.g(m2, b2);
 	cout << "The line of g(x) is y = " << line.g(m2, b2) << endl << endl;
 	cout << "This is the equation of both f(x) and g(x) equal to each other " << endl;
-	line.equalToEachOther(m1, b1, m2, b2);
+	line.equalToEachOther(m1, b1, m2, b2);*/
 }
