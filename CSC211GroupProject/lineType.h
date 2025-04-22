@@ -39,7 +39,7 @@ public:
 
 	void isPerpendicular(double m1, double b1, double m2, double b2);
 
-
+	//THIS IS FOR PART 2
 	void yEqualsMxPlusB(double a1, double b1, double c1, double a2, double b2, double c2);
 };
 
