@@ -1,3 +1,13 @@
+<<<<<<< Updated upstream
 ﻿  lineType.cpp
   LINK : C:\Users\Juan\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe not found or not built by the last incremental link; performing full link
   CSC211GroupProject.vcxproj -> C:\Users\Juan\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe
+=======
+﻿  GroupProject.cpp
+  lineType.cpp
+  Generating Code...
+  CSC211GroupProject.vcxproj -> C:\Users\ardia\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
