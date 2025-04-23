@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 using namespace std;
 
 #include "lineType.h"
@@ -68,4 +69,23 @@ lineType::lineType(double x = 0, double y = 0)
 {
 	setLine(x, y);
 }
+
+//varaibles for function beneath
+double ep = 1e-6;
+//additional default constructor
+lineType::lineType(double a, double b, double c)
+{
+	if (fabs(b) < ep)
+	{
+		m1 = INFINITY;
+		b1 = NAN;
+	}
+	else
+	{
+		m1 = -a / b;
+		b1 = c / b;
+	}
+}
+
+
 

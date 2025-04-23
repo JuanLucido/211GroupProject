@@ -14,9 +14,34 @@ int main() {
 	cout << "Is lineA perpendicular to lineC (1 - yes | 0 - no): " << lineA.isPerpendicular(lineC) << endl << endl;
 
 	double x, y;
-
 	cout << "Using printIntersectionPoints for lineA and lineC: " << endl;
-	lineA.printIntersectionPoints(lineC, x, y);
+	if (lineA.intersectionPoints(lineC, x, y))
+	{
+		cout << '(' << x << ", " << y << ')' << endl;
+	}
+	else
+	{
+		cout << "No intersection points (parallel)." << endl;
+	}
+
+	cout << "\nUsing form converstion functions: " << endl;
+	lineType lineE(2, -1, 4);
+	lineType lineF(-1, -1, -4);
+	lineType lineG(1, 1, 2);
+
+	cout << "Is lineE parallel to lineF (1 - yes | 0 - no): " << lineE.isParallel(lineF) << endl;
+	cout << "Is lineE perpendicular to lineG (1 - yes | 0 - no): " << lineE.isPerpendicular(lineG) << endl;
+
+	cout << "Intersection of lineE and lineG: ";
+	if (lineE.intersectionPoints(lineG, x, y)) {
+		cout << '(' << x << ", " << y << ')' << endl;
+	}
+	else {
+		cout << "No intersection." << endl;
+	}
+
+	//additional testing for new function (convertLineForm())
+	
 
 	/*lineType line;
 	double m1, b1, m2, b2;

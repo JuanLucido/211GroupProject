@@ -27,6 +27,8 @@ public:
 	void printIntersectionPoints(lineType& obj, double& x, double& y);
 
 	lineType(double x, double y);
+
+	lineType(double a, double b, double c);
 };
 
 #endif
