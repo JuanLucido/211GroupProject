@@ -10,6 +10,7 @@ void lineType::setLine(double x, double y)
 	x1 = x;
 	y1 = y;
 	m1 = y1 / x1;
+	b1 = y1 - m1 * x1;
 }
 //gets x coord
 double lineType::getx1()
@@ -40,6 +41,27 @@ bool lineType::isPerpendicular(lineType& obj)
 bool lineType::isParallel(lineType& obj)
 {
 	return (m1 == obj.m1);
+}
+//intersection functions
+bool lineType::intersectionPoints(lineType& obj, double& x, double& y)
+{
+	if (m1 == obj.m1)
+	{
+		return false;
+	}
+	else
+	{
+		x = (obj.b1 - b1) / (m1 - obj.m1);
+		y = m1 * x + b1;
+		return true;
+	}
+}
+//print intersection point
+void lineType::printIntersectionPoints(lineType& obj, double& x, double& y)
+{
+	x = (obj.b1 - b1) / (m1 - obj.m1);
+	y = m1 * x + b1;
+	cout << "Intersection point: (" << x << ", " << y << ')' << endl;
 }
 //default constructor
 lineType::lineType(double x = 0, double y = 0)
