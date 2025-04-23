@@ -72,7 +72,7 @@ lineType::lineType(double x = 0, double y = 0)
 
 //varaibles for function beneath
 double ep = 1e-6;
-//additional default constructor
+//additional default constructor (used chat for the formulas @_@)
 lineType::lineType(double a, double b, double c)
 {
 	if (fabs(b) < ep)
@@ -86,6 +86,8 @@ lineType::lineType(double a, double b, double c)
 		b1 = c / b;
 	}
 }
+
+
 
 
 

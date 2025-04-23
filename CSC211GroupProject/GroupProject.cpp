@@ -3,6 +3,36 @@
 #include <string>
 using namespace std;
 
+//all functions below check for shapes (used chat to help with most of these formulas
+bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
+{
+	return obj1.isParallel(obj2) && obj3.isParallel(obj4);
+}
+
+bool isTrapezoid(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
+{
+	bool pair1 = obj1.isParallel(obj2);
+	bool pair2 = obj3.isParallel(obj4);
+	return pair1 ^ pair2; //XOR operator
+}
+
+bool isRectangle(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
+{
+	return isParallelogram(obj1, obj2, obj3, obj4) && obj1.isPerpendicular(obj3);
+}
+
+bool isRhombus(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
+{
+	return isParallelogram(obj1, obj2, obj3, obj4); //need to add lengths within lineType files to properly work. once we do that we're set.
+}
+
+bool isSquare(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
+{
+	return isRectangle(obj1, obj2, obj3, obj4) && isRhombus(obj1, obj2, obj3, obj4); //same issue here. update rhombus in order to properly fix this.
+}
+
+
+//main function
 int main() {
 	lineType lineA(2, 4);
 	lineType lineB(4, 8);
@@ -40,38 +70,10 @@ int main() {
 		cout << "No intersection." << endl;
 	}
 
-	//additional testing for new function (convertLineForm())
-	
+	cout << "\nTesting shapes: (only tested functional ones)" << endl;
+	cout << "Parallelogram? (1 - yes | 0 - no): " << isParallelogram(lineA, lineB, lineC, lineD) << endl;
+	cout << "Rectangle? (1 - yes | 0 - no): " << isRectangle(lineA, lineB, lineC, lineD) << endl;
+	cout << "Trapezoid? (1 - yes | 0 - no): " << isTrapezoid(lineA, lineB, lineC, lineD) << endl;
 
-	/*lineType line;
-	double m1, b1, m2, b2;
-	while (true) {
-		cout << "Enter the slope and y-intercept of the first line (m1 b1): ";
-		cin >> m1 >> b1;
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Invalid input. Please enter two numbers." << endl;
-			continue;
-		}
-		break;
-	}
-	line.f(m1, b1);
-	cout << "the line of f(x) is y = " << line.f(m1, b1) << endl;
-	while (true) {
-		cout << "Enter the slope and y-intercept of the second line (m2 b2): ";
-		cin >> m2 >> b2;
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Invalid input. Please enter two numbers." << endl;
-			continue;
-		}
-		break;
-	}
-	line.g(m2, b2);
-	cout << "The line of g(x) is y = " << line.g(m2, b2) << endl << endl;
-	cout << "This is the equation of both f(x) and g(x) equal to each other " << endl;
-	line.equalToEachOther(m1, b1, m2, b2);*/
 	return 0;
 }
