@@ -5,44 +5,19 @@
 using namespace std;
 
 class lineType {
+private:
+	double x1, y1, m1, b1;
 public:
-	//void x_int(double a, double b, double c) {
-	//	cout << a << 'x' << " + " << b << 'y' << '=' << c;
-	//	//math part where y=0
-	//	a + b * 0;
-	//	c = c / a;
-	//	cout << " The x intercept is " << c << endl;
-	//
-	//
-	//}
-	//void y_int(double a, double b, double c) {
-	//	cout << a << 'x' << " + " << b << 'y' << '=' << c;
-	//	a * 0 + b;
-	//	c = c / b;
-	//	cout << " The y intercept is " << c << endl;
-	//}
-	//void x_int2(double a, double b, double c) {
-	//	cout << a << 'x' << " + " << b << 'y' << '=' << c;
-	//	//math part where y=0
-	//	a + b * 0;
-	//	c = c / a;
-	//	cout << " The x intercept is " << c << endl;
-	//
-	// testing234234234 dakota's branch//
-	//}
+	double getx1();
 
-	string f(double m, double b);
+	double gety1();
 
-	string g(double m, double b);
+	double getm1();
 
-	void equalToEachOther(double m1, double b1, double m2, double b2);
+	bool equalToEachOther(lineType& obj);
 
-	void isPerpendicular(double m1, double b1, double m2, double b2);
+	bool isPerpendicular(lineType& obj);
 
-<<<<<<< Updated upstream
-	//THIS IS FOR PART 2
-	void yEqualsMxPlusB(double a1, double b1, double c1, double a2, double b2, double c2);
-=======
 	bool isParallel(lineType& obj);
 
 	bool intersectionPoints(double& x, double& y);
@@ -60,7 +35,6 @@ public:
 	bool intersectionPointsFromFile(double a, double b, double c, double& x, double& y);
 
 	
->>>>>>> Stashed changes
 };
 
 #endif

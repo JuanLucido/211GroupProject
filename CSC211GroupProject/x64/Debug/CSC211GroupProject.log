@@ -1,6 +1,4 @@
 ﻿  GroupProject.cpp
-<<<<<<< Updated upstream
-=======
-C:\Users\ardia\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(64,45): warning C4101: 'n': unreferenced local variable
->>>>>>> Stashed changes
+C:\Users\ardia\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(66,45): warning C4101: 'n': unreferenced local variable
+  LINK : C:\Users\ardia\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe not found or not built by the last incremental link; performing full link
   CSC211GroupProject.vcxproj -> C:\Users\ardia\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe
