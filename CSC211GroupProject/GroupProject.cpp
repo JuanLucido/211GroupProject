@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+
 using namespace std;
 
 //all functions below check for shapes (used chat to help with most of these formulas
@@ -32,11 +33,25 @@ bool isSquare(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
 	return isRectangle(obj1, obj2, obj3, obj4) && isRhombus(obj1, obj2, obj3, obj4); //same issue here. update rhombus in order to properly fix this.
 }
 void usierInput() {
-	cout << "Enter 4 numbers the first 2 will be counted as lineA and the second 2 will counted as lineB: ";
 	double m1, b1, m2, b2;
-	cin >> m1 >> b1 >> m2 >> b2;
+	while (true) {
+		cout << "Enter 4 numbers (m1, b1, m2, b2). The first 2 will be counted as lineA and the second 2 as lineB: ";
+		if (cin >> m1 >> b1 >> m2 >> b2) {
+			if (m1 == m2) {
+				cout << "Lines are parallel (m1 cannot equal m2). Please re-enter valid values." << endl;
+				continue;
+			}
+			break; // Valid input
+		}
+		else {
+			cin.clear(); // Clear the error flag
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+			cout << "Invalid input. Please enter numeric values." << endl;
+		}
+	}
+
 	lineType lineA(m1, b1);
-	lineType lineB(m1, b2);
+	lineType lineB(m2, b2);
 
 
 	cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
@@ -46,6 +61,8 @@ void usierInput() {
 	double x, y;
 	x = (b2 - b1) / (m1 - m2);
 	y = (x * m1 + b1);
+
+   
 	cout << "Using printIntersectionPoints for lineA and lineB: " << endl;
 	//this is all we had to do which when looking at it makes sense
 	if (lineA.intersectionPoints(x, y) == lineB.intersectionPoints(x, y))
@@ -142,28 +159,30 @@ void readFile() {
 //main function
 int main() {
 	
-	int choice;
-	cout << "Welcome to the CSC 211 group project choose from the list provided to see what you want to do. " << endl;
-	do {
-		cout << "1. type in a numbers and find the intersection of 2 lines" << endl;
-		cout << "2. Read in from a file to find where the lines intersect and what shape they make." << endl;
-		cout << "3. Exit" << endl;
-		cin >> choice;
-		switch (choice) {
-		case 1:
-			usierInput();
-			break;
-		case 2:
-			readFile();
-			break;
-		}
-		
+    int choice;
+    cout << "Welcome to the CSC 211 group project choose from the list provided to see what you want to do. " << endl;
+    do {
+    cout << "1. Type in numbers and find the intersection of 2 lines" << endl;
+    cout << "2. Read in from a file to find where the lines intersect and what shape they make." << endl;
+    cout << "3. Exit" << endl;
+    cout << "Enter your choice (1-3): ";
 
+    while (!(cin >> choice) || choice < 1 || choice > 3) {
+    cin.clear(); // Clear the error flag
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+    cout << "Invalid input. Please enter a number between 1 and 3: ";
+    }
 
-	} while (choice != 3);
-	
+    switch (choice) {
+    case 1:
+    usierInput();
+    break;
+    case 2:
+    readFile();
+    break;
+    }
 
+    } while (choice != 3);
 
-
-	return 0;
+    return 0;
 }
