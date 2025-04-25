@@ -6,12 +6,23 @@ using namespace std;
 #include "lineType.h"
 
 //sets line
-void lineType::setLine(double x, double y)
+const double ep = 1e-6; 
+//used chat to help with the formulas @_@
+void lineType::setLine(double a, double b, double c) // reverting to ax+by=c formula
 {
-	x1 = x;
-	y1 = y;
-	m1 = y1 / x1;
-	b1 = y1 - m1 * x1;
+	a1 = a;
+	b1 = b;
+	c1 = c;
+	if (fabs(b1) < ep)
+	{
+		m1 = INFINITY;
+		b2 = NAN;
+	}
+	else
+	{
+		m1 = -a1 / b1;
+		b2 = c1 / b1;
+	}
 }
 //gets x coord
 double lineType::getx1()
@@ -46,46 +57,65 @@ bool lineType::isParallel(lineType& obj)
 //intersection functions
 bool lineType::intersectionPoints(lineType& obj, double& x, double& y)
 {
-	if (m1 == obj.m1)
+	double det = (a1 * obj.b1) - (obj.a1 * b1);
+	if (fabs(det) < ep) //is it close to zero ?? ty chatgpt ig
 	{
 		return false;
 	}
 	else
 	{
-		x = (obj.b1 - b1) / (m1 - obj.m1);
-		y = m1 * x + b1;
+		x = (c1 * obj.b1 - obj.c1 * b1) / det;
+		y = (a1 * obj.c1 - obj.a1 * c1) / det;
 		return true;
 	}
 }
 //print intersection point
-void lineType::printIntersectionPoints(lineType& obj, double& x, double& y)
+void lineType::printIntersectionPoints(double& x, double& y)
 {
-	x = (obj.b1 - b1) / (m1 - obj.m1);
-	y = m1 * x + b1;
 	cout << "Intersection point: (" << x << ", " << y << ')' << endl;
 }
 //default constructor
-lineType::lineType(double x = 0, double y = 0)
-{
-	setLine(x, y);
-}
-
-//varaibles for function beneath
-double ep = 1e-6;
-//additional default constructor (used chat for the formulas @_@)
 lineType::lineType(double a, double b, double c)
 {
-	if (fabs(b) < ep)
-	{
-		m1 = INFINITY;
-		b1 = NAN;
-	}
-	else
-	{
-		m1 = -a / b;
-		b1 = c / b;
-	}
+	setLine(a,b,c);
 }
+
+//sorry for commenting this out it's okay we can bring this back later
+//not even going to lie idk what the hell is happening its like 12 am I'm tried man 
+//bool lineType::intersectionPointsFromFile(double a, double b, double c, double& intX, double& intY)
+//{
+//	double otherM, otherB;
+//	const double epsilon = 1e-6;
+//
+//	// Handle vertical line: b == 0 means vertical
+//	if (fabs(b) < epsilon) {
+//		otherM = INFINITY;
+//		otherB = NAN;
+//	}
+//	else {
+//		otherM = -a / b;
+//		otherB = c / b;
+//	}
+//
+//	if (fabs(m1 - otherM) < epsilon || (isinf(m1) && isinf(otherM))) {
+//		return false; // Lines are parallel
+//	}
+//
+//	if (isinf(m1)) {
+//		intX = x1;
+//		intY = otherM * intX + otherB;
+//	}
+//	else if (isinf(otherM)) {
+//		intX = -c / a;
+//		intY = m1 * intX + b1;
+//	}
+//	else {
+//		intX = (otherB - b1) / (m1 - otherM);
+//		intY = m1 * intX + b1;
+//	}
+//
+//	return true;
+//}
 
 
 

@@ -1,2 +1,8 @@
 ﻿  GroupProject.cpp
+  lineType.cpp
+C:\Users\Bxnnie\Downloads\githubstuff\211GroupProject\CSC211GroupProject\GroupProject.cpp(101,15): warning C4101: 'intY': unreferenced local variable
+C:\Users\Bxnnie\Downloads\githubstuff\211GroupProject\CSC211GroupProject\GroupProject.cpp(101,9): warning C4101: 'intX': unreferenced local variable
+C:\Users\Bxnnie\Downloads\githubstuff\211GroupProject\CSC211GroupProject\GroupProject.cpp(84,45): warning C4101: 'n': unreferenced local variable
+  Generating Code...
+  LINK : C:\Users\Bxnnie\Downloads\githubstuff\211GroupProject\x64\Debug\CSC211GroupProject.exe not found or not built by the last incremental link; performing full link
   CSC211GroupProject.vcxproj -> C:\Users\Bxnnie\Downloads\githubstuff\211GroupProject\x64\Debug\CSC211GroupProject.exe
