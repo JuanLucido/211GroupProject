@@ -3,6 +3,8 @@
 #include <string>
 using namespace std;
 
+//NUKING MAIN ON FRIDAY (4/25)
+
 //all functions below check for shapes (used chat to help with most of these formulas
 bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
 {
