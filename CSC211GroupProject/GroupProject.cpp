@@ -34,12 +34,12 @@ bool isSquare(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
 
 //main function
 int main() {
-	/*double m1, b1, m2, b2;
+	double m1, b1, m2, b2, a;
 	cin >> m1 >> b1 >> m2 >> b2;
-	lineType lineA(m1, b1);
-	lineType lineB(m1, b2);
-	lineType lineC(1, -2);
-	lineType lineD(2, 6);
+	lineType lineA(m1, b1, a);
+	lineType lineB(m1, b2, a);
+	lineType lineC(1, -2, 3);
+	lineType lineD(2, 6, 3);
 
 	cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
 	cout << "Is lineA parallel to lineB (1 - yes | 0 - no): " << lineA.isParallel(lineB) << endl;
@@ -50,7 +50,7 @@ int main() {
 	y = (x * m1 + b1);
 	cout << "Using printIntersectionPoints for lineA and lineB: " << endl;
 	//this is all we had to do which when looking at it makes sense
-	if (lineA.intersectionPoints(x, y) == lineB.intersectionPoints(x, y))
+	/*if (lineA.intersectionPoints(x, y) == lineB.intersectionPoints(x, y))
 	{
 		cout << '(' << x << ", " << y << ')' << endl;
 	}
@@ -60,10 +60,10 @@ int main() {
 		
 	}*/
 
-	////THIS SHIT FINALLY FUCKING WORKS HOW? IDK BUT IT DOES I'M GOING TO GO CRY NOW
-	//cout << "\nUsing form converstion functions: " << endl;
-	//cout << "Input the numbers of line E and G(TESTING THIS IS SUPPOSED TO READ IN FROM) ";
-	//double a, b, c, e, f, g, h, i, j, k, l, m, n;
+	//THIS SHIT FINALLY FUCKING WORKS HOW? IDK BUT IT DOES I'M GOING TO GO CRY NOW
+	cout << "\nUsing form converstion functions: " << endl;
+	cout << "Input the numbers of line E and G(TESTING THIS IS SUPPOSED TO READ IN FROM) ";
+	double a, b, c, e, f, g, h, i, j, k, l, m, n;
 
 	//THIS SHIT FINALLY FUCKING WORKS HOW? IDK BUT IT DOES I'M GOING TO GO CRY NOW
 	cout << "\nUsing form converstion functions: " << endl;
