@@ -20,17 +20,19 @@ public:
 
 	bool isParallel(lineType& obj);
 
-	bool intersectionPoints(lineType& obj, double& x, double& y);
+	bool intersectionPoints(double& x, double& y);
 
 	//bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
 
-	void printIntersectionPoints(lineType& obj, double& x, double& y);
+	void printIntersectionPoints(double& x, double& y);
 
 	void setLine(double x, double y);
 
 	lineType(double x, double y);
 
 	lineType(double a, double b, double c);
+
+	bool intersectionPointsFromFile(double a, double b, double c, double& x, double& y);
 
 	
 };
