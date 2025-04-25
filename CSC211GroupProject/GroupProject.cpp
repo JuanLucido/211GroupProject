@@ -1,6 +1,7 @@
 #include "lineType.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 //all functions below check for shapes (used chat to help with most of these formulas
@@ -30,21 +31,18 @@ bool isSquare(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
 {
 	return isRectangle(obj1, obj2, obj3, obj4) && isRhombus(obj1, obj2, obj3, obj4); //same issue here. update rhombus in order to properly fix this.
 }
-
-
-//main function
-int main() {
+void usierInput() {
+	cout << "Enter 4 numbers the first 2 will be counted as lineA and the second 2 will counted as lineB: ";
 	double m1, b1, m2, b2;
 	cin >> m1 >> b1 >> m2 >> b2;
 	lineType lineA(m1, b1);
 	lineType lineB(m1, b2);
-	lineType lineC(1, -2);
-	lineType lineD(2, 6);
+
 
 	cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
 	cout << "Is lineA parallel to lineB (1 - yes | 0 - no): " << lineA.isParallel(lineB) << endl;
-	//cout << "Is lineA perpendicular to lineC (1 - yes | 0 - no): " << lineA.isPerpendicular(lineC) << endl << endl;
 
+	
 	double x, y;
 	x = (b2 - b1) / (m1 - m2);
 	y = (x * m1 + b1);
@@ -57,44 +55,115 @@ int main() {
 	else
 	{
 		cout << "No intersection points (parallel)." << endl;
+
+	}
+}
+
+void readFile() {
+	ifstream fin("sets_of_lines.txt");
+	if (!fin.is_open()) {
+		cerr << "Error: Unable to open file." << endl;
 		
 	}
-
 	//THIS SHIT FINALLY FUCKING WORKS HOW? IDK BUT IT DOES I'M GOING TO GO CRY NOW
-	cout << "\nUsing form converstion functions: " << endl;
-	cout << "Input the numbers of line E and G(TESTING THIS IS SUPPOSED TO READ IN FROM) ";
+	cout << "\nUsing form converstion functions: " << endl << endl;
+	//shows which set of numbers its being read in from
+	int lineNum = 1;
 	double a, b, c, e, f, g, h, i, j, k, l, m, n;
+	while (fin >> a >> b >> c >> e >> f >> g >> h >> i >> j >> k >> l >> m) {
 
-	// Input coefficients for line E and F (Standard form: Ax + By = C)
-	cin >> a >> b >> c >> e >> f >> g;
+		lineType lineE(a, b, c);
+		lineType lineF(e, f, g);
 
-	// Initialize line objects for E and F
-	lineType lineE(a, b, c);
-	lineType lineF(e, f, g);
+		lineType lineG(h, i, j);
+		lineType lineH(k, l, m);
 
-	// Input coefficients for line G and H (Standard form: Ax + By = C)
-	cin >> h >> i >> j >> k >> l >> m;
+		// Declare variables to store the intersection point
+		double intX, intY;
 
-	// Initialize line objects for G and H
-	lineType lineG(h, i, j);
-	lineType lineH(k, l, m);
+		// Print the intersection of all lines from the file
+		cout << "Intersections for set " << lineNum << ":" << endl;
 
-	// Declare variables to store the intersection point
-	double intX, intY;
+		if (lineE.intersectionPointsFromFile(e, f, g, intX, intY)) {
+			cout << "E and F: (" << intX << ", " << intY << ")" << endl;
+		}
+		else {
+			cout << "E and F: No intersection (parallel)" << endl;
+		}
+		if (lineE.intersectionPointsFromFile(h, i, j, intX, intY)) {
+			cout << "E and G: (" << intX << ", " << intY << ")" << endl;
+		}
+		else {
+			cout << "E and G: No intersection(parallel)" << endl;
+		}
+		if (lineE.intersectionPointsFromFile(k, l, m, intX, intY)) {
+			cout << "E and H: (" << intX << ", " << intY << ")" << endl;
+		}
+		else {
+			cout << "E and H: No intersection (parallel)" << endl;
+		} 
+		if (lineF.intersectionPointsFromFile(h, i, j, intX, intY)) {
+			cout << "F and G: (" << intX << ", " << intY << ")" << endl;
 
-	// Print the intersection of lineE and lineG
-	cout << "Intersection of lineE and lineG: ";
-	if (lineE.intersectionPointsFromFile(h, i, j, intX, intY)) {
-		cout << "(" << intX << ", " << intY << ")" << endl;
+		}
+		else {
+			cout << "F and G: No intersection (parallel)" << endl;
+		}
+		if (lineF.intersectionPointsFromFile(k, l, m, intX, intY)) {
+			cout << "F and H: (" << intX << ", " << intY << ")" << endl;
+		}
+		else {
+			cout << "F and H: No intersection (parallel)" << endl;
+		}
+		if (lineG.intersectionPointsFromFile(k, l, m, intX, intY)) {
+			cout << "G and H: (" << intX << ", " << intY << ")" << endl;
+		}
+		else {
+			cout << "G and H: No intersection (parallel)" << endl;
+		}
+			
+		cout << endl;
+
+		cout << "\nTesting shapes: (only tested functional ones) of the " << lineNum << " set of the lines from the file " << endl;
+		cout << "Parallelogram? (1 - yes | 0 - no): " << isParallelogram(lineE, lineF, lineG, lineH) << endl;
+		cout << "Rectangle? (1 - yes | 0 - no): " << isRectangle(lineE, lineF, lineG, lineH) << endl;
+		cout << "Trapezoid? (1 - yes | 0 - no): " << isTrapezoid(lineE, lineF, lineG, lineH) << endl << endl;
+
+		lineNum++;
+
 	}
-	else {
-		cout << "No intersection (parallel lines)." << endl;
-	}
 
-	/*cout << "\nTesting shapes: (only tested functional ones)" << endl;
-	cout << "Parallelogram? (1 - yes | 0 - no): " << isParallelogram(lineA, lineB, lineC, lineD) << endl;
-	cout << "Rectangle? (1 - yes | 0 - no): " << isRectangle(lineA, lineB, lineC, lineD) << endl;
-	cout << "Trapezoid? (1 - yes | 0 - no): " << isTrapezoid(lineA, lineB, lineC, lineD) << endl;*/
+
+	fin.close();
+
+}
+
+
+//main function
+int main() {
+	
+	int choice;
+	cout << "Welcome to the CSC 211 group project choose from the list provided to see what you want to do. " << endl;
+	do {
+		cout << "1. type in a numbers and find the intersection of 2 lines" << endl;
+		cout << "2. Read in from a file to find where the lines intersect and what shape they make." << endl;
+		cout << "3. Exit" << endl;
+		cin >> choice;
+		switch (choice) {
+		case 1:
+			usierInput();
+			break;
+		case 2:
+			readFile();
+			break;
+		}
+		
+
+
+	} while (choice != 3);
+	
+
+
 
 	return 0;
 }
