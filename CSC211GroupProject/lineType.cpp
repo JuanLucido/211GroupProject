@@ -107,12 +107,6 @@ lineType& lineType::operator=(const lineType& source) {
 	this->isVerticalLine = source.isVerticalLine;
 }
 
-//Destructor
-lineType::~lineType()
-{
-	cout << "Destructor called for " << this->eqnYMXB << " @ this memory location " << this << endl;
-}
-
 //Add print 'printLineInfo' function?
 
 /********************************************************/
@@ -241,4 +235,10 @@ void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
 {
 	x1 = (objB.get_y_intercept() - objA.get_y_intercept()) / (objA.get_m() - objB.get_m());
 	y1 = objA.get_m() * x1 + objA.get_y_intercept();
+}
+
+//Used for Part 1 loop
+void changeLine(lineType& objA, double m0, double yInt0)
+{
+	objA.setLine1(m0, yInt0);
 }

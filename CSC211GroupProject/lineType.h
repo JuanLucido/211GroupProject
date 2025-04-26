@@ -49,9 +49,6 @@ public:
 	//Overload Assignment Operator ( = ); Used when loading lines to quadType object in Part 2
 	lineType& operator=(const lineType& source);
 
-	//Destructor
-	~lineType();
-
 	//Add print 'printLineInfo' function?
 };
 
@@ -122,12 +119,15 @@ public:
 	//Add print 'printQuadInfo' function?
 };
 
-//General Purpose functions for Part 1 & 2
+//General Purpose functions for Part 1 & 2 below:
 bool equalToEachOther(lineType obj1, lineType obj2);
 bool isPerpendicular(lineType obj1, lineType obj2);
 bool isParallel(lineType obj1, lineType obj2);
 
 //Used to plot intersections of any 2 lines
 void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
+
+//Used for Part 1 loop
+void changeLine(lineType& objA, double m0, double yInt0);
 
 #endif

@@ -17,22 +17,26 @@ void exitPrompt();
 void mainMenu();
 
 void userInput() {
-	
+	lineType LineA();
+	lineType LineB();
+	int loops = 0;
+	double m1, yInt1, m2, yInt2;
+
 	while (true) {
 		cout << "\n---------------------------------------------------------\n\n"
 			<< "---------- LINE COMPARISON OPERATIONS ----------\n\n"
 			<< "In this section you'll be creating 2 lines as they would be graphed on a Cartesian plane\n"
-			<< "(i.e., y = m * x + b)\n\n...";
+			<< "(i.e., Format: y = m * x + b)\n\n...";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+		do {
+
+		} while (entryFailed(selection, low, high, choice)); //Checks validity of user input
 		cout << "\n---------------------------------------------------------\n\n"
-			<< "Enter 4 numbers in either integer or decimal format (e.g., 1.0, 1, 5.0, 5,)\n"
-			<< "the first 2 will be counted as lineA and the second 2 will counted as lineB : ";
+			 << "Enter a value for 'm' (slope) in either integer or decimal format\n(e.g., 1.0, 1, 5.0, 5,)\n\n"
+			 << "Your new 'm' value: ";
 
-		double m1, yInt1, m2, yInt2;
-
-		lineType lineA(m1, yInt1);
-		lineType lineB(m1, yInt2);
+		cin.
 
 
 
@@ -54,6 +58,7 @@ void userInput() {
 			cout << "No intersection points (parallel)." << endl;
 
 		}
+		loops++;
 	}
 }
 
@@ -139,7 +144,8 @@ int main() {
 	return 0;
 }
 
-bool entryFailed(char array[], int low, int high, int& choice) { //Returns true/false within while loop parentheses
+//Returns true/false within while loop parentheses; only works on integers, ie., when user selects a menu option
+bool entryFailed(char array[], int low, int high, int& choice) { 
 
 	int conversion = 0;
 
