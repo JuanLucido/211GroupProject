@@ -1,10 +1,10 @@
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include <cmath>
 using namespace std;
 
 #include "lineType.h"
-
 
 /********************************************************/
 /****** Class 'lineType's FUNCTION DEFINITIONS!!!!! *****/
@@ -95,6 +95,25 @@ void lineType::setLine2(double a1, double b1, double c1)
 	// A*x + B*y = C  =>  y = (C/B) - (A/B) * x
 }
 
+//Overload Assignment Operator ( = ); Used when loading lines to quadType object
+lineType& lineType::operator=(const lineType& source) {
+	//cout << "Overload Assignment Called." << endl;
+	this->m = source.m;
+	this->y_intercept = source.y_intercept;
+	this->a = source.a;
+	this->b = source.c;
+	this->eqnYMXB = source.eqnYMXB;
+	this->eqnABC = source.eqnABC;
+	this->isVerticalLine = source.isVerticalLine;
+}
+
+//Destructor
+lineType::~lineType()
+{
+	cout << "Destructor called for " << this->eqnYMXB << " @ this memory location " << this << endl;
+}
+
+//Add print 'printLineInfo' function?
 
 /********************************************************/
 /****** Class 'quadType's FUNCTION DEFINITIONS!!!!! *****/
@@ -103,13 +122,16 @@ void lineType::setLine2(double a1, double b1, double c1)
 //Constructor
 quadType::quadType(lineType obj1, lineType obj2, lineType obj3, lineType obj4) 
 {
-	setIntersections(obj1, obj2, obj3, obj4);
-}
-
-void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
-{
-	x1 = (objB.get_y_intercept() - objA.get_y_intercept()) / (objA.get_m() - objB.get_m());
-	y1 = objA.get_m() * x1 + objA.get_y_intercept();
+	line1 = obj1;
+	line2 = obj2;
+	line3 = obj3;
+	line4 = obj4;
+	setIntersections(line1, line2, line3, line4);
+	parallelogramTest(line1, line2, line3, line4);
+	trapezoidTest(line1, line2, line3, line4);
+	rectangleTest(line1, line2, line3, line4);
+	rhombusTest(line1, line2, line3, line4);
+	squareTest();
 }
 
 void quadType::setIntersections(lineType objA, lineType objB, lineType objC, lineType objD)
@@ -134,17 +156,23 @@ void quadType::setIntersections(lineType objA, lineType objB, lineType objC, lin
 	set_intersect4(temp);
 }
 
-//Find distance for Line1 vs Line 3 & 4, then compare distance for Line 2 vs Line 3 & 4
-double quadType::calcDistance(lineType objA, lineType objB, lineType objC)
+void quadType::printIntersectionPoints()
+{
+	cout << "Intersection points as would be seen on a 2-D Cartesian Plane:\n\n"
+		 << get_intersect1() << endl << get_intersect2() << endl
+		 << get_intersect3() << endl << get_intersect4() << endl << endl;
+}
+
+double quadType::calcDistance(lineType obj1, lineType obj2, lineType obj3)
 {
 	double x1, x2, y1, y2, distance;
 
 	//Find (x, y) coordinate when f(x) - g(x) = 0, where solving for x gives y
 	//The following is algebra for solving mx + b = mx + b, against Line [1 or 2] vs Line 3 & 4
-	x1 = (objB.get_y_intercept() - objA.get_y_intercept()) / (objA.get_m() - objB.get_m());
-	x2 = (objC.get_y_intercept() - objA.get_y_intercept()) / (objA.get_m() - objC.get_m());
-	y1 = objA.get_m() * x1 + objA.get_y_intercept();
-	y2 = objA.get_m() * x2 + objA.get_y_intercept();
+	x1 = (obj2.get_y_intercept() - obj1.get_y_intercept()) / (obj1.get_m() - obj2.get_m()); //
+	x2 = (obj3.get_y_intercept() - obj1.get_y_intercept()) / (obj1.get_m() - obj3.get_m());
+	y1 = obj1.get_m() * x1 + obj1.get_y_intercept();
+	y2 = obj1.get_m() * x2 + obj1.get_y_intercept();
 
 	//Distance formula
 	distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
@@ -152,15 +180,51 @@ double quadType::calcDistance(lineType objA, lineType objB, lineType objC)
 	return distance;
 }
 
-void quadType::printIntersectionPoints()
+void quadType::parallelogramTest(lineType objA, lineType objB, lineType objC, lineType objD)
 {
-	//Some cout statement
+	if (isParallel(objA, objB) == true && isParallel(objC, objD) == true 
+		&& calcDistance(objA, objC, objB) == calcDistance(objB, objC, objD)) {
+		set_isParallelogram(true);
+	}
+	else { set_isParallelogram(false); }
 }
+
+void quadType::trapezoidTest(lineType objA, lineType objB, lineType objC, lineType objD) 
+{
+	if (isParallel(objA, objB) ^ isParallel(objC, objD)) { set_isTrapezoid(true); } //XOR operator
+	else { set_isTrapezoid(false); }
+}
+
+void quadType::rectangleTest(lineType objA, lineType objB, lineType objC, lineType objD)
+{
+	if (get_isParallelogram == false) {
+		set_isRectangle(false);
+	}
+	else if (isPerpendicular(objA, objC) == true && isPerpendicular(objA, objD) == true
+		&& isPerpendicular(objB, objC) == true && isPerpendicular(objB, objD) == true) {
+		set_isRectangle(true);
+	}
+}
+
+void quadType::rhombusTest(lineType obj1, lineType obj2, lineType obj3, lineType obj4)
+{
+	if (calcDistance(obj3, obj1, obj2) == calcDistance(obj1, obj3, obj4) 
+		== calcDistance(obj2, obj3, obj4) == calcDistance(obj4, obj1, obj2)) {
+		set_isRhombus(true);
+	}
+	else { set_isRhombus(false); }
+}
+
+void quadType::squareTest() {
+	if (get_isRhombus() == true && get_isRectangle() == true) { set_isSquare(true); }
+	else { set_isSquare(false); }
+}
+
+//Add print 'printQuadInfo' function?
 
 /********************************************************/
 /****** General Purpose FUNCTION DEFINITIONS!!!!! *******/
 /********************************************************/
-
 
 //For 'return' command: If statement in (parentheses) is true, returns TRUE, else FALSE
 bool equalToEachOther(lineType obj1, lineType obj2)
@@ -172,52 +236,9 @@ bool isPerpendicular(lineType obj1, lineType obj2)
 bool isParallel(lineType obj1, lineType obj2)
 { return (obj1.get_m() == obj2.get_m()); }
 
-
-//not even going to lie idk what the hell is happening its like 12 am I'm tried man
-bool intersectionPointsFromFile(double a, double b, double c, double& intX, double& intY)
+//Used to plot intersections of any 2 lines
+void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
 {
-	double otherM, otherB;
-	const double epsilon = 1e-6;
-
-	// Handle vertical line: b == 0 means vertical
-	if (fabs(b) < epsilon) {
-		otherM = INFINITY;
-		otherB = NAN;
-	}
-	else {
-		otherM = -a / b;
-		otherB = c / b;
-	}
-
-	if (fabs(m1 - otherM) < epsilon || (isinf(m1) && isinf(otherM))) {
-		return false; // Lines are parallel
-	}
-
-	if (isinf(m1)) {
-		intX = x1;
-		intY = otherM * intX + otherB;
-	}
-	else if (isinf(otherM)) {
-		intX = -c / a;
-		intY = m1 * intX + b1;
-	}
-	else {
-		intX = (otherB - b1) / (m1 - otherM);
-		intY = m1 * intX + b1;
-	}
-
-	return true;
+	x1 = (objB.get_y_intercept() - objA.get_y_intercept()) / (objA.get_m() - objB.get_m());
+	y1 = objA.get_m() * x1 + objA.get_y_intercept();
 }
-
-/*if (fabs(b) < ep)
-{
-	m1 = INFINITY;
-	b1 = NAN;
-}
-else
-{
-	m1 = -a / b;
-	b1 = c / b;
-}*/
-
-//varaibles for function beneath

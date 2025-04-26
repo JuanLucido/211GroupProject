@@ -1,6 +1,7 @@
 #ifndef LINETYPE_H
 #define LINETPYE_H
 
+#include <cstdlib>
 #include <string>
 using namespace std;
 
@@ -45,6 +46,12 @@ public:
 	void setLine1(double m1, double y_intercept1);	//Part 1
 	void setLine2(double a1, double b1, double c1);	//Part 2 
 
+	//Overload Assignment Operator ( = ); Used when loading lines to quadType object in Part 2
+	lineType& operator=(const lineType& source);
+
+	//Destructor
+	~lineType();
+
 	//Add print 'printLineInfo' function?
 };
 
@@ -53,7 +60,7 @@ private:
 	string shapeName;	
 
 	bool isParallelogram;	//True if slopes of opposing sides are equal && opposing side equal in length
-	bool isTrapezoid;		//True if NOT Parallelogram
+	bool isTrapezoid;		//True if only 1 pair of opposite sides is parallel
 	bool isRectangle;		//True if Parallelogram && sides are perpendicular to each other
 	bool isRhombus;			//True if all sides are equal - which also means its a Parallelogram
 	bool isSquare;			//True if quad is both Rhombus && Rectangle
@@ -95,14 +102,22 @@ public:
 
 	//Constructor
 	quadType(lineType obj1, lineType obj2, lineType obj3, lineType obj4);
-
-	void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
-
+	
 	void setIntersections(lineType objA, lineType objB, lineType objC, lineType objD);
-
-	double calcDistance(lineType objA, lineType objB, lineType objC);
-
+	
 	void printIntersectionPoints();
+
+	double calcDistance(lineType obj1, lineType obj2, lineType obj3);
+
+	void parallelogramTest(lineType objA, lineType objB, lineType objC, lineType objD);
+
+	void trapezoidTest(lineType objA, lineType objB, lineType objC, lineType objD);
+
+	void rectangleTest(lineType objA, lineType objB, lineType objC, lineType objD);
+	
+	void rhombusTest(lineType objA, lineType objB, lineType objC, lineType objD);
+
+	void squareTest();
 
 	//Add print 'printQuadInfo' function?
 };
@@ -112,11 +127,7 @@ bool equalToEachOther(lineType obj1, lineType obj2);
 bool isPerpendicular(lineType obj1, lineType obj2);
 bool isParallel(lineType obj1, lineType obj2);
 
-
-
-//bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
-void printIntersectionPoints(double& x, double& y);
-
-bool intersectionPointsFromFile(double a, double b, double c, double& x, double& y);
+//Used to plot intersections of any 2 lines
+void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
 
 #endif

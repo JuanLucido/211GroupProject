@@ -1,5 +1,6 @@
 #include "lineType.h"
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include <fstream>
 #include <iomanip>
@@ -9,49 +10,50 @@ const int MAX_SIZE = 5000; //Global variable for max size of user-entered char a
 
 bool entryFailed(char array[], int low, int high, int& choice);
 
-//all bool functions below check for shapes
-bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
-bool isTrapezoid(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
-bool isRectangle(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
-bool isRhombus(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
-bool isSquare(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
+void introPrompt();
+
+void exitPrompt();
+
+void mainMenu();
 
 void userInput() {
-	cout << "\n---------------------------------------------------------\n\n"
-		 << "---------- LINE COMPARISON OPERATIONS ----------\n\n"
-		 << "In this section you'll be creating 2 lines as they would be graphed on a cartesian plane\n"
-		 << "(i.e., y coordinate = (slope) * (x coordinate) + y-intercept coordinate,\n"
-		 << "or simply, y = m * x + b)\n\n...";
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-	cout << "\n---------------------------------------------------------\n\n"
-		 << "Enter 4 numbers in either integer or decimal format (e.g., 1.0, 1, 5.0, 5,)\n"
-		 << "the first 2 will be counted as lineA and the second 2 will counted as lineB : ";
-
-	double m1, b1, m2, b2;
-	cin >> m1 >> b1 >> m2 >> b2;
-	lineType lineA(m1, b1);
-	lineType lineB(m1, b2);
-
-
-
-	cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
-	cout << "Is lineA parallel to lineB (1 - yes | 0 - no): " << lineA.isParallel(lineB) << endl;
-
 	
-	double x, y;
-	x = (b2 - b1) / (m1 - m2);
-	y = (x * m1 + b1);
-	cout << "Using printIntersectionPoints for lineA and lineB: " << endl;
-	//this is all we had to do which when looking at it makes sense
-	if (lineA.intersectionPoints(x, y) == lineB.intersectionPoints(x, y))
-	{
-		cout << '(' << x << ", " << y << ')' << endl;
-	}
-	else
-	{
-		cout << "No intersection points (parallel)." << endl;
+	while (true) {
+		cout << "\n---------------------------------------------------------\n\n"
+			<< "---------- LINE COMPARISON OPERATIONS ----------\n\n"
+			<< "In this section you'll be creating 2 lines as they would be graphed on a Cartesian plane\n"
+			<< "(i.e., y = m * x + b)\n\n...";
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+		cout << "\n---------------------------------------------------------\n\n"
+			<< "Enter 4 numbers in either integer or decimal format (e.g., 1.0, 1, 5.0, 5,)\n"
+			<< "the first 2 will be counted as lineA and the second 2 will counted as lineB : ";
+
+		double m1, yInt1, m2, yInt2;
+
+		lineType lineA(m1, yInt1);
+		lineType lineB(m1, yInt2);
+
+
+
+		cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
+		cout << "Is lineA parallel to lineB (1 - yes | 0 - no): " << lineA.isParallel(lineB) << endl;
+
+
+		double x, y;
+		x = (b2 - b1) / (m1 - m2);
+		y = (x * m1 + b1);
+		cout << "Using printIntersectionPoints for lineA and lineB: " << endl;
+		//this is all we had to do which when looking at it makes sense
+		if (lineA.intersectionPoints(x, y) == lineB.intersectionPoints(x, y))
+		{
+			cout << '(' << x << ", " << y << ')' << endl;
+		}
+		else
+		{
+			cout << "No intersection points (parallel)." << endl;
+
+		}
 	}
 }
 
@@ -126,21 +128,54 @@ void readFile() {
 		cout << "Trapezoid? (1 - yes | 0 - no): " << isTrapezoid(lineE, lineF, lineG, lineH) << endl << endl;
 
 		lineNum++;
-
 	}
-
-
 	fin.close();
-
 }
 
-void introPrompt() //Self explanatory
+int main() {
+	introPrompt();
+	mainMenu();
+	exitPrompt();
+	return 0;
+}
+
+bool entryFailed(char array[], int low, int high, int& choice) { //Returns true/false within while loop parentheses
+
+	int conversion = 0;
+
+	if (strlen(array) > 2) {} //Converts Char array[] to statically cast integer
+	else if (strlen(array) == 1) { conversion = static_cast<int>(array[0]) - 48; }
+
+	//else if (strlen(array) == 2) {
+	//	conversion = 10 * (static_cast<int>(array[0]) - 48) + (static_cast<int>(array[1]) - 48);
+	//}
+
+	if (conversion < low || conversion > high) { //Returns error until user inputs valid choice
+		cin.clear(); //clears error flags
+		cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...";
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		return true;
+	}
+	else { //If user entered valid choice, exits loop
+		choice = conversion; //sets conversion of character array to integer needed to menu/user
+		return false;
+	}
+}
+
+void introPrompt()
 {
 	cout << "========== WELCOME TO Team T.G.F.Y's 211 Group Project 1.0 ==========\n\n"
-		 << "This programs helps analyze mathematical representations of 'lines',\ni.e., y = mx + b, by comparing them.\n\n"
-		 << "=====================================================================\n\n"
-		 << "Any time you see '...' the program stalled. Press [ENTER] to continue!\n\n...";
+		<< "This programs helps analyze mathematical representations of 'lines',\ni.e., y = mx + b, by comparing them.\n\n"
+		<< "=====================================================================\n\n"
+		<< "Any time you see '...' the program stalled. Press [ENTER] to continue!\n\n...";
 
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+void exitPrompt()
+{
+	cout << "\n===================================================================\n\n";
+	cout << "Thank you for using our team's 211 Group Project. Goodbye!!!\n\n...";
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
@@ -176,71 +211,4 @@ void mainMenu()
 			return; //Exits void function
 		}
 	}
-}
-
-void exitPrompt() //Self explanatory
-{
-	cout << "\n===================================================================\n\n";
-	cout << "Thank you for using our team's 211 Group Project. Goodbye!!!\n\n...";
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
-
-int main() {
-
-	introPrompt();
-	mainMenu();
-	exitPrompt();
-
-	return 0;
-}
-
-bool entryFailed(char array[], int low, int high, int& choice) { //Returns true/false within while loop parentheses
-
-	int conversion = 0;
-
-	if (strlen(array) > 2) {} //Converts Char array[] to statically cast integer
-	else if (strlen(array) == 1) { conversion = static_cast<int>(array[0]) - 48; }
-
-	//else if (strlen(array) == 2) {
-	//	conversion = 10 * (static_cast<int>(array[0]) - 48) + (static_cast<int>(array[1]) - 48);
-	//}
-
-	if (conversion < low || conversion > high) { //Returns error until user inputs valid choice
-		cin.clear(); //clears error flags
-		cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...";
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		return true;
-	}
-	else { //If user entered valid choice, exits loop
-		choice = conversion; //sets conversion of character array to integer needed to menu/user
-		return false;
-	}
-}
-
-//all bool functions below check for shapes
-bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
-{
-	return obj1.isParallel(obj2) && obj3.isParallel(obj4);
-}
-
-bool isTrapezoid(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
-{
-	bool pair1 = obj1.isParallel(obj2);
-	bool pair2 = obj3.isParallel(obj4);
-	return pair1 ^ pair2; //XOR operator
-}
-
-bool isRectangle(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
-{
-	return isParallelogram(obj1, obj2, obj3, obj4) && obj1.isPerpendicular(obj3);
-}
-
-bool isRhombus(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
-{
-	return isParallelogram(obj1, obj2, obj3, obj4); //need to add lengths within lineType files to properly work. once we do that we're set.
-}
-
-bool isSquare(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4)
-{
-	return isRectangle(obj1, obj2, obj3, obj4) && isRhombus(obj1, obj2, obj3, obj4); //same issue here. update rhombus in order to properly fix this.
 }
