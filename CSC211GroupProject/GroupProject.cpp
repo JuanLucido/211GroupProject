@@ -1,3 +1,4 @@
+
 #include "lineType.h"
 #include <iostream>
 #include <string>
@@ -42,7 +43,7 @@ void usierInput() {
 	cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
 	cout << "Is lineA parallel to lineB (1 - yes | 0 - no): " << lineA.isParallel(lineB) << endl;
 
-	
+
 	double x, y;
 	x = (b2 - b1) / (m1 - m2);
 	y = (x * m1 + b1);
@@ -63,7 +64,7 @@ void readFile() {
 	ifstream fin("sets_of_lines.txt");
 	if (!fin.is_open()) {
 		cerr << "Error: Unable to open file." << endl;
-		
+
 	}
 	//THIS SHIT FINALLY FUCKING WORKS HOW? IDK BUT IT DOES I'M GOING TO GO CRY NOW
 	cout << "\nUsing form converstion functions: " << endl << endl;
@@ -101,7 +102,7 @@ void readFile() {
 		}
 		else {
 			cout << "E and H: No intersection (parallel)" << endl;
-		} 
+		}
 		if (lineF.intersectionPointsFromFile(h, i, j, intX, intY)) {
 			cout << "F and G: (" << intX << ", " << intY << ")" << endl;
 
@@ -121,7 +122,7 @@ void readFile() {
 		else {
 			cout << "G and H: No intersection (parallel)" << endl;
 		}
-			
+
 		cout << endl;
 
 		cout << "\nTesting shapes: (only tested functional ones) of the " << lineNum << " set of the lines from the file " << endl;
@@ -141,7 +142,7 @@ void readFile() {
 
 //main function
 int main() {
-	
+
 	int choice;
 	cout << "Welcome to the CSC 211 group project choose from the list provided to see what you want to do. " << endl;
 	do {
@@ -157,11 +158,11 @@ int main() {
 			readFile();
 			break;
 		}
-		
+
 
 
 	} while (choice != 3);
-	
+
 
 
 

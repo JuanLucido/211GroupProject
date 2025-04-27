@@ -1,3 +1,4 @@
+
 #ifndef LINETYPE_H
 #define LINETPYE_H
 
@@ -34,7 +35,7 @@ public:
 
 	bool intersectionPointsFromFile(double a, double b, double c, double& x, double& y);
 
-	
+
 };
 
 #endif

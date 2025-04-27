@@ -119,8 +119,3 @@ bool lineType::intersectionPointsFromFile(double a, double b, double c, double& 
 
 	return true;
 }
-
-
-
-
-
