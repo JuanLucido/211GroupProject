@@ -50,38 +50,6 @@ public:
 	//Overload Assignment Operator ( = ); Used when loading lines to quadType object in Part 2
 	lineType& operator=(const lineType& source);
 
-class lineType {
-private:
-	double x1, y1, m1, b1;
-public:
-	double getx1();
-
-	double gety1();
-
-	double getm1();
-
-	bool equalToEachOther(lineType& obj);
-
-	bool isPerpendicular(lineType& obj);
-
-	bool isParallel(lineType& obj);
-
-	bool intersectionPoints(double& x, double& y);
-
-	//bool isParallelogram(lineType& obj1, lineType& obj2, lineType obj3, lineType& obj4);
-
-	void printIntersectionPoints(double& x, double& y);
-
-	void setLine(double x, double y);
-
-	lineType(double x, double y);
-
-	lineType(double a, double b, double c);
-
-	bool intersectionPointsFromFile(double a, double b, double c, double& x, double& y);
-
-	
-
 };
 
 class quadType { //Quadrilateral composed from comparison of 'lineType objects' intersecting
@@ -159,7 +127,5 @@ bool isParallel(lineType obj1, lineType obj2);
 
 //Used to plot intersections of any 2 lines
 void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
-
-
 
 #endif
