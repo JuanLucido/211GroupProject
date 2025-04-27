@@ -48,8 +48,6 @@ public:
 
 	//Overload Assignment Operator ( = ); Used when loading lines to quadType object in Part 2
 	lineType& operator=(const lineType& source);
-
-	//Add print 'printLineInfo' function?
 };
 
 class quadType { //Quadrilateral composed from comparison of 'lineType objects' intersecting
@@ -127,7 +125,7 @@ bool isParallel(lineType obj1, lineType obj2);
 //Used to plot intersections of any 2 lines
 void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
 
-//Used for Part 1 loop
+//Delete this function???
 void changeLine(lineType& objA, double m0, double yInt0);
 
 #endif

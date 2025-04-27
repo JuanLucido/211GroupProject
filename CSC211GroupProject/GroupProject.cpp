@@ -16,9 +16,10 @@ void exitPrompt();
 
 void mainMenu();
 
+void printLineInfo(lineType obj1);
+
 void userInput() {
-	lineType LineA();
-	lineType LineB();
+
 	int loops = 0;
 	double m1, yInt1, m2, yInt2;
 
@@ -29,40 +30,68 @@ void userInput() {
 			<< "(i.e., Format: y = m * x + b)\n\n...";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-		do {
-
-		} while (entryFailed(selection, low, high, choice)); //Checks validity of user input
 		cout << "\n---------------------------------------------------------\n\n"
+			 << "FIRST LINE (Line A):\n"
 			 << "Enter a value for 'm' (slope) in either integer or decimal format\n(e.g., 1.0, 1, 5.0, 5,)\n\n"
 			 << "Your new 'm' value: ";
+		cin >> m1;
 
-		cin.
+		cout << "\n\nNow enter a value for 'b' (y-intercept) in either integer or decimal format\n(e.g., 1.0, 1, 5.0, 5,)\n\n"
+			 << "Your new 'b' value: ";
+		cin >> yInt1;
+		lineType lineA(m1, yInt1);
 
+		cout << "\n---------------------------------------------------------\n\n"
+			 << "SECOND LINE (Line B):\n"
+			 << "Enter a value for 'm' (slope) in either integer or decimal format\n(e.g., 1.0, 1, 5.0, 5,)\n\n"
+			 << "Your new 'm' value: ";
+		cin >> m2;
 
+		cout << "\n\nNow enter a value for 'b' (y-intercept) in either integer or decimal format\n(e.g., 1.0, 1, 5.0, 5,)\n\n"
+			<< "Your new 'b' value: ";
+		cin >> yInt2;
+		lineType lineB(m2, yInt2);
 
-		cout << "Does lineA = lineB (1 - yes | 0 - no): " << lineA.equalToEachOther(lineB) << endl;
-		cout << "Is lineA parallel to lineB (1 - yes | 0 - no): " << lineA.isParallel(lineB) << endl;
+		cout << "\n---------------------------------------------------------\n\n"
+			 << "Here are the properties of your Lines:\n\n"; 
+		cout << "LineA:\n";
+		printLineInfo(lineA);
+		cout << "\nLineB:\n";
+		printLineInfo(lineB);
 
-
-		double x, y;
-		x = (b2 - b1) / (m1 - m2);
-		y = (x * m1 + b1);
-		cout << "Using printIntersectionPoints for lineA and lineB: " << endl;
-		//this is all we had to do which when looking at it makes sense
-		if (lineA.intersectionPoints(x, y) == lineB.intersectionPoints(x, y))
-		{
-			cout << '(' << x << ", " << y << ')' << endl;
+		cout << "Comparison of LineA & LineB:\n\n"
+			<< "Equal to each other? : ";
+		if (equalToEachOther(lineA, lineB) == true) {
+			cout << "YES";
 		}
-		else
-		{
-			cout << "No intersection points (parallel)." << endl;
-
+		else {
+			cout << "NO";
 		}
-		loops++;
+		cout << "\nParallel to each other? : ";
+		if (isParallel(lineA, lineB) == true) {
+			cout << "YES";
+		}
+		else {
+			cout << "NO";
+		}
+		
+		double x = 0.0, y = 0.0;
+		plotIntersection(lineA, lineB, x, y);
+
+		cout << "\nDo they intersect? : ";
+		if (isParallel(lineA, lineB) == false) {
+			cout << "YES. Intersection Point is at.... (" << x << ", " << y << " )\n";
+		}
+		else {
+			cout << "NO. Both lines are parallel and will NEVER intersect!!!\n";
+		}
+		cout << "\n...";
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 }
 
-void readFile() {
+/*void readFile() {
 	ifstream fin("sets_of_lines.txt");
 	if (!fin.is_open()) {
 		cerr << "Error: Unable to open file." << endl;
@@ -135,7 +164,7 @@ void readFile() {
 		lineNum++;
 	}
 	fin.close();
-}
+}*/
 
 int main() {
 	introPrompt();
@@ -211,10 +240,17 @@ void mainMenu()
 			userInput();
 			break;
 		case 2:
-			readFile();
+			//readFile();
 			break;
 		case 3:
 			return; //Exits void function
 		}
 	}
+}
+
+void printLineInfo(lineType obj1) {
+	cout << "'m' value (slope): " << obj1.get_m() << "\n'b' value (y-intercept): " << obj1.get_y_intercept() << endl;
+	cout << "Slop-Intercept format of LINE: " << obj1.get_eqnYMXB() << "\n\n";
+	cout << "'A' value: " << obj1.get_a() << "\n'B' value: " << obj1.get_b() << "\n'c' value: " << obj1.get_c() << endl;
+	cout << "Standard Form of LINE: " << obj1.get_eqnABC() << "\n\n";
 }

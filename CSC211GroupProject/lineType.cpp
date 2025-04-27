@@ -98,6 +98,12 @@ void lineType::setLine2(double a1, double b1, double c1)
 //Overload Assignment Operator ( = ); Used when loading lines to quadType object
 lineType& lineType::operator=(const lineType& source) {
 	//cout << "Overload Assignment Called." << endl;
+	
+	//Check for self assignment
+	if (this == &source)
+	{
+		return *this;
+	}
 	this->m = source.m;
 	this->y_intercept = source.y_intercept;
 	this->a = source.a;
@@ -106,8 +112,6 @@ lineType& lineType::operator=(const lineType& source) {
 	this->eqnABC = source.eqnABC;
 	this->isVerticalLine = source.isVerticalLine;
 }
-
-//Add print 'printLineInfo' function?
 
 /********************************************************/
 /****** Class 'quadType's FUNCTION DEFINITIONS!!!!! *****/
@@ -191,7 +195,7 @@ void quadType::trapezoidTest(lineType objA, lineType objB, lineType objC, lineTy
 
 void quadType::rectangleTest(lineType objA, lineType objB, lineType objC, lineType objD)
 {
-	if (get_isParallelogram == false) {
+	if (get_isParallelogram() == false) {
 		set_isRectangle(false);
 	}
 	else if (isPerpendicular(objA, objC) == true && isPerpendicular(objA, objD) == true
@@ -237,7 +241,7 @@ void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
 	y1 = objA.get_m() * x1 + objA.get_y_intercept();
 }
 
-//Used for Part 1 loop
+//Delete this function????
 void changeLine(lineType& objA, double m0, double yInt0)
 {
 	objA.setLine1(m0, yInt0);
