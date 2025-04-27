@@ -184,8 +184,15 @@ void quadType::parallelogramTest(lineType objA, lineType objB, lineType objC, li
 	// (calcDistance(objA, objC, objB) == calcDistance(objB, objC, objD))
 	if (isParallel(objA, objB) == true && isParallel(objC, objD) == true) 
 	{
-
-		set_isParallelogram(true);
+		double distance1 = calcDistance(objA, objC, objB);
+		double distance2 = calcDistance(objB, objD, objB);
+		
+		if (distance1 == distance2) {
+			set_isParallelogram(true);
+		}
+		else {
+			set_isParallelogram(false);
+		}
 	}
 	else { set_isParallelogram(false); }
 }

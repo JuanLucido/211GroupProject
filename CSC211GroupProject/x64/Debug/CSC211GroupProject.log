@@ -1,4 +1,5 @@
-﻿  GroupProject.cpp
-C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(128,12): warning C4101: 'intY': unreferenced local variable
-C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(128,6): warning C4101: 'intX': unreferenced local variable
+﻿  lineType.cpp
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\lineType.cpp(220,18): warning C4805: '==': unsafe mix of type 'bool' and type 'double' in operation
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\lineType.cpp(220,52): warning C4805: '==': unsafe mix of type 'bool' and type 'double' in operation
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\lineType.cpp(115,1): warning C4715: 'lineType::operator=': not all control paths return a value
   CSC211GroupProject.vcxproj -> C:\Users\Juan\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe
