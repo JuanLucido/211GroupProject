@@ -6,7 +6,6 @@ using namespace std;
 
 #include "lineType.h"
 
-
 /********************************************************/
 /****** Class 'lineType's FUNCTION DEFINITIONS!!!!! *****/
 /********************************************************/
@@ -90,73 +89,11 @@ void lineType::setLine2(double a1, double b1, double c1)
 		set_isVerticalLine(false);
 		tempString2 = "Y = " + to_string(get_m()) + " * X + " + to_string(get_y_intercept());
 		set_eqnYMXB(tempString2);
-
-//sets line
-void lineType::setLine(double x, double y)
-{
-	double a, b, c;
-	x1 = x;
-	y1 = y;
-	m1 = y1 / x1;
-	b1 = y1 - m1 * x1;
-}
-//gets x coord
-double lineType::getx1()
-{
-	return x1;
-}
-//gets y coord
-double lineType::gety1()
-{
-	return y1;
-}
-//gets slope
-double lineType::getm1()
-{
-	return m1;
-}
-//checks if lines are equal
-bool lineType::equalToEachOther(lineType& obj)
-{
-	return (x1 == obj.x1 && y1 == obj.y1);
-}
-//checks if lines are perpendicular
-bool lineType::isPerpendicular(lineType& obj)
-{
-	return ((m1 * obj.m1) == -1);
-}
-//checks if lines are parallel
-bool lineType::isParallel(lineType& obj)
-{
-	return (m1 == obj.m1);
-}
-//intersection functions
-bool lineType::intersectionPoints(double& x, double& y)
-{
-	if (m1 == m1)
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-
 	}
 
 	// Calculation for M, Y_INTERCEPT values in this function is based on calculation below:
 	// A*x + B*y = C  =>  y = (C/B) - (A/B) * x
 }
-//print intersection point
-void lineType::printIntersectionPoints(double& x, double& y)
-{
-	cout << "Intersection point: (" << x << ", " << y << ')' << endl;
-}
-//default constructor
-lineType::lineType(double x = 0, double y = 0)
-{
-	setLine(x, y);
-}
-
 
 //Overload Assignment Operator ( = ); Used when loading lines to quadType object
 lineType& lineType::operator=(const lineType& source) {
@@ -299,67 +236,35 @@ bool isParallel(lineType obj1, lineType obj2)
 { return (obj1.get_m() == obj2.get_m()); }
 
 //Used to plot intersections of any 2 lines
-void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
+void plotIntersection(lineType objA, lineType objB, double& x1, double& y1) 
 {
-	x1 = (objB.get_y_intercept() - objA.get_y_intercept()) / (objA.get_m() - objB.get_m());
-	y1 = objA.get_m() * x1 + objA.get_y_intercept();
-}
-
-//varaibles for function beneath
-double ep = 1e-6;
-//additional default constructor (used chat for the formulas @_@)
-lineType::lineType(double a, double b, double c)
-{
-	if (fabs(b) < ep)
-	{
-		m1 = INFINITY;
-		b1 = NAN;
-	}
-	else
-	{
-		m1 = -a / b;
-		b1 = c / b;
-	}
-}
-
-//not even going to lie idk what the hell is happening its like 12 am I'm tried man
-bool lineType::intersectionPointsFromFile(double a, double b, double c, double& intX, double& intY)
-{
+	const double ep = 1e-6;
 	double otherM, otherB;
-	const double epsilon = 1e-6;
+	//if (fabs(objB.get_b()<ep)) {
+	//	otherM = INFINITY;
+	//	otherB = NAN;
+	//}
+	//else {
+		otherM = -1*objB.get_a() / objB.get_b();
+		otherB = objB.get_c() / objB.get_b();
+	//}
 
-	// Handle vertical line: b == 0 means vertical
-	if (fabs(b) < epsilon) {
-		otherM = INFINITY;
-		otherB = NAN;
-	}
-	else {
-		otherM = -a / b;
-		otherB = c / b;
-	}
-
-	if (fabs(m1 - otherM) < epsilon || (isinf(m1) && isinf(otherM))) {
-		return false; // Lines are parallel
+	if (fabs(objA.get_m() - otherM) < ep || (isinf(objA.get_m()) && isinf(otherM))) {
+		return;
 	}
 
-	if (isinf(m1)) {
-		intX = x1;
-		intY = otherM * intX + otherB;
+	if (isinf(objA.get_m())) {
+		x1 = -1*objB.get_c() / objB.get_a();
+		y1 = otherM * x1 + otherB;
+
+
 	}
 	else if (isinf(otherM)) {
-		intX = -c / a;
-		intY = m1 * intX + b1;
+		x1 = -1*objA.get_c() / objA.get_a();
+		y1 = objA.get_m() * x1 + objA.get_y_intercept();
 	}
 	else {
-		intX = (otherB - b1) / (m1 - otherM);
-		intY = m1 * intX + b1;
+		x1 = (otherB - objA.get_y_intercept()) / (objA.get_m() - otherM);
+		y1 = objA.get_m() * x1 + objA.get_y_intercept();
 	}
-
-	return true;
 }
-
-
-
-
-
-
