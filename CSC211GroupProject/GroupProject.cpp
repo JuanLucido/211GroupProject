@@ -129,48 +129,9 @@ void readFile() {
 
 	fin.close();
 	for (int coi = 0;coi < 3;coi++) {
+		cout << "\n---------------------------------------------------------\n\n";
+		cout << "Here's Quadrilateral " << coi+1 << "'s Information:\n\n";
 		printQuadInfo(quad.at(coi));
-		// Print the intersection of all lines from the file
-	/*	cout << "Intersections for set " << lineNum << ":" << endl;
-
-		if (lineE.intersectionPointsFromFile(e, f, g, intX, intY)) {
-			cout << "E and F: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "E and F: No intersection (parallel)" << endl;
-		}
-		if (lineE.intersectionPointsFromFile(h, i, j, intX, intY)) {
-			cout << "E and G: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "E and G: No intersection(parallel)" << endl;
-		}
-		if (lineE.intersectionPointsFromFile(k, l, m, intX, intY)) {
-			cout << "E and H: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "E and H: No intersection (parallel)" << endl;
-		}
-		if (lineF.intersectionPointsFromFile(h, i, j, intX, intY)) {
-			cout << "F and G: (" << intX << ", " << intY << ")" << endl;
-
-		}
-		else {
-			cout << "F and G: No intersection (parallel)" << endl;
-		}
-		if (lineF.intersectionPointsFromFile(k, l, m, intX, intY)) {
-			cout << "F and H: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "F and H: No intersection (parallel)" << endl;
-		}
-		if (lineG.intersectionPointsFromFile(k, l, m, intX, intY)) {
-			cout << "G and H: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "G and H: No intersection (parallel)" << endl;
-		}
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');*/
 
 	}
 
@@ -268,28 +229,41 @@ void printLineInfo(lineType obj1) {
 //call the getters except for shapeName
 void printQuadInfo(quadType obj1)
 {
-	obj1.get_isParallelogram();
+	cout << "Is this shape a Parallelogram? ";
 	if (obj1.get_isParallelogram() == true) {
-		cout << "THIS WORKS";
+		cout << "\tYES\n";
 	}
 	else {
-		cout << "not parallelogram";
+		cout << "\tNO\n";
 	}
-	obj1.get_isTrapezoid();
+	cout << "Is this shape a Trapezoid? ";
 	if (obj1.get_isTrapezoid() == true) {
-		cout << "This is a trapizod" << endl;
+		cout << "\tYES\n";
 	}
 	else {
-		cout << "Not a trap" << endl;
+		cout << "\tNO\n";
 	}
-	obj1.get_isRectangle();
-	
-	obj1.get_isRhombus();
-	obj1.get_isSquare();
+	cout << "Is this shape a Rectangle? ";
+	if (obj1.get_isRectangle() == true) {
+		cout << "\tYES\n";
+	}
+	else {
+		cout << "\tNO\n";
+	}
+	cout << "Is this shape a Rhombus? ";
+	if (obj1.get_isRhombus() == true) {
+		cout << "\tYES\n";
+	}
+	else {
+		cout << "\tNO\n";
+	}
+	cout << "Is this shape a Square? ";
+	if (obj1.get_isSquare() == true) {
+		cout << "\tYES\n";
+	}
+	else {
+		cout << "\tNO\n";
+	}
 
-
-	cout << obj1.get_intersect1() << endl;
-	cout << obj1.get_intersect2() << endl;
-	cout << obj1.get_intersect3() << endl;
-	cout << obj1.get_intersect4() << endl;
+	obj1.printIntersectionPoints();
 }

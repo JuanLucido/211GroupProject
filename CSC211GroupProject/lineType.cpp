@@ -75,8 +75,8 @@ void lineType::setLine2(double a1, double b1, double c1)
 	set_eqnABC(tempString1);
 
 	// Section: Y = MX + B
-	double ep = 1e-6;						//'ep' = short for 'epsilon'. Represents (very cloes to) zero
-	if (get_b() == 0 || get_b() < ep) {		//If B == 0, then you have a vertical line
+
+	if (get_b() == 0) {		//If B == 0, then you have a vertical line
 		set_m(INFINITY);					//Vertical lines have infinite slope
 		set_y_intercept(NAN);				//NAN = Not A Number; Vertical lines don't have y-intercept
 		set_isVerticalLine(true);
@@ -157,7 +157,7 @@ void quadType::setIntersections(lineType objA, lineType objB, lineType objC, lin
 
 void quadType::printIntersectionPoints()
 {
-	cout << "Intersection points as would be seen on a 2-D Cartesian Plane:\n\n"
+	cout << "\nIntersection points as would be seen on a 2-D Cartesian Plane:\n\n"
 		 << get_intersect1() << endl << get_intersect2() << endl
 		 << get_intersect3() << endl << get_intersect4() << endl << endl;
 }
@@ -181,8 +181,10 @@ double quadType::calcDistance(lineType obj1, lineType obj2, lineType obj3)
 
 void quadType::parallelogramTest(lineType objA, lineType objB, lineType objC, lineType objD)
 {
-	if (isParallel(objA, objB) == true && isParallel(objC, objD) == true 
-		&& calcDistance(objA, objC, objB) == calcDistance(objB, objC, objD)) {
+	// (calcDistance(objA, objC, objB) == calcDistance(objB, objC, objD))
+	if (isParallel(objA, objB) == true && isParallel(objC, objD) == true) 
+	{
+
 		set_isParallelogram(true);
 	}
 	else { set_isParallelogram(false); }
@@ -219,8 +221,6 @@ void quadType::squareTest() {
 	else { set_isSquare(false); }
 }
 
-//Add print 'printQuadInfo' function?
-
 /********************************************************/
 /****** General Purpose FUNCTION DEFINITIONS!!!!! *******/
 /********************************************************/
@@ -240,24 +240,13 @@ void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
 {
 	const double ep = 1e-6;
 	double otherM, otherB;
-	//if (fabs(objB.get_b()<ep)) {
-	//	otherM = INFINITY;
-	//	otherB = NAN;
-	//}
-	//else {
-		otherM = -1*objB.get_a() / objB.get_b();
-		otherB = objB.get_c() / objB.get_b();
-	//}
 
-	if (fabs(objA.get_m() - otherM) < ep || (isinf(objA.get_m()) && isinf(otherM))) {
-		return;
-	}
+	otherM = -1*objB.get_a() / objB.get_b();
+	otherB = objB.get_c() / objB.get_b();
 
 	if (isinf(objA.get_m())) {
 		x1 = -1*objB.get_c() / objB.get_a();
 		y1 = otherM * x1 + otherB;
-
-
 	}
 	else if (isinf(otherM)) {
 		x1 = -1*objA.get_c() / objA.get_a();
