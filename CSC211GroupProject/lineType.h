@@ -115,6 +115,7 @@ public:
 	void squareTest();
 
 	//Add print 'printQuadInfo' function?
+	
 };
 
 //General Purpose functions for Part 1 & 2 below:
@@ -125,7 +126,6 @@ bool isParallel(lineType obj1, lineType obj2);
 //Used to plot intersections of any 2 lines
 void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
 
-//Delete this function???
-void changeLine(lineType& objA, double m0, double yInt0);
+
 
 #endif

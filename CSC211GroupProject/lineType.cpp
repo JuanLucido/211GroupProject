@@ -84,8 +84,8 @@ void lineType::setLine2(double a1, double b1, double c1)
 		set_eqnYMXB(tempString2);
 	}
 	else {
-		set_m(get_c() / get_b());
-		set_y_intercept((-1 * get_a()) / get_b());
+		set_m((-1 * get_a()) / get_b());
+		set_y_intercept(get_c() / get_b());
 		set_isVerticalLine(false);
 		tempString2 = "Y = " + to_string(get_m()) + " * X + " + to_string(get_y_intercept());
 		set_eqnYMXB(tempString2);
@@ -107,7 +107,8 @@ lineType& lineType::operator=(const lineType& source) {
 	this->m = source.m;
 	this->y_intercept = source.y_intercept;
 	this->a = source.a;
-	this->b = source.c;
+	this->b = source.b;
+	this->c = source.c;
 	this->eqnYMXB = source.eqnYMXB;
 	this->eqnABC = source.eqnABC;
 	this->isVerticalLine = source.isVerticalLine;
@@ -201,7 +202,7 @@ void quadType::rectangleTest(lineType objA, lineType objB, lineType objC, lineTy
 	else if (isPerpendicular(objA, objC) == true && isPerpendicular(objA, objD) == true
 		&& isPerpendicular(objB, objC) == true && isPerpendicular(objB, objD) == true) {
 		set_isRectangle(true);
-	}
+		 }
 }
 
 void quadType::rhombusTest(lineType obj1, lineType obj2, lineType obj3, lineType obj4)
@@ -241,8 +242,3 @@ void plotIntersection(lineType objA, lineType objB, double& x1, double& y1)
 	y1 = objA.get_m() * x1 + objA.get_y_intercept();
 }
 
-//Delete this function????
-void changeLine(lineType& objA, double m0, double yInt0)
-{
-	objA.setLine1(m0, yInt0);
-}

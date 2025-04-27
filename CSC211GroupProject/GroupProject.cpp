@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <vector>
 using namespace std;
 
 const int MAX_SIZE = 5000; //Global variable for max size of user-entered char array
@@ -17,6 +18,8 @@ void exitPrompt();
 void mainMenu();
 
 void printLineInfo(lineType obj1);
+
+void printQuadInfo(quadType obj1);
 
 void userInput() {
 
@@ -88,83 +91,41 @@ void userInput() {
 		cout << "\n...";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		break;
 	}
 }
 
-/*void readFile() {
+void readFile() {
+	vector<quadType> quad;
 	ifstream fin("sets_of_lines.txt");
 	if (!fin.is_open()) {
 		cerr << "Error: Unable to open file." << endl;
 		
 	}
-	//THIS SHIT FINALLY FUCKING WORKS HOW? IDK BUT IT DOES I'M GOING TO GO CRY NOW
-	cout << "\nUsing form converstion functions: " << endl << endl;
 	//shows which set of numbers its being read in from
 	int lineNum = 1;
-	double a, b, c, e, f, g, h, i, j, k, l, m, n;
-	while (fin >> a >> b >> c >> e >> f >> g >> h >> i >> j >> k >> l >> m) {
-
+	double a, b, c, e, f, g, h, i, j, k, l, m;
+	for (int coi = 0;coi < 3;coi++) {
+		fin >> a >> b >> c >> e >> f >> g >> h >> i >> j >> k >> l >> m;
 		lineType lineE(a, b, c);
 		lineType lineF(e, f, g);
 
 		lineType lineG(h, i, j);
 		lineType lineH(k, l, m);
 
-		// Declare variables to store the intersection point
-		double intX, intY;
-
-		// Print the intersection of all lines from the file
-		cout << "Intersections for set " << lineNum << ":" << endl;
-
-		if (lineE.intersectionPointsFromFile(e, f, g, intX, intY)) {
-			cout << "E and F: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "E and F: No intersection (parallel)" << endl;
-		}
-		if (lineE.intersectionPointsFromFile(h, i, j, intX, intY)) {
-			cout << "E and G: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "E and G: No intersection(parallel)" << endl;
-		}
-		if (lineE.intersectionPointsFromFile(k, l, m, intX, intY)) {
-			cout << "E and H: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "E and H: No intersection (parallel)" << endl;
-		} 
-		if (lineF.intersectionPointsFromFile(h, i, j, intX, intY)) {
-			cout << "F and G: (" << intX << ", " << intY << ")" << endl;
-
-		}
-		else {
-			cout << "F and G: No intersection (parallel)" << endl;
-		}
-		if (lineF.intersectionPointsFromFile(k, l, m, intX, intY)) {
-			cout << "F and H: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "F and H: No intersection (parallel)" << endl;
-		}
-		if (lineG.intersectionPointsFromFile(k, l, m, intX, intY)) {
-			cout << "G and H: (" << intX << ", " << intY << ")" << endl;
-		}
-		else {
-			cout << "G and H: No intersection (parallel)" << endl;
-		}
-			
-		cout << endl;
-
-		cout << "\nTesting shapes: (only tested functional ones) of the " << lineNum << " set of the lines from the file " << endl;
-		cout << "Parallelogram? (1 - yes | 0 - no): " << isParallelogram(lineE, lineF, lineG, lineH) << endl;
-		cout << "Rectangle? (1 - yes | 0 - no): " << isRectangle(lineE, lineF, lineG, lineH) << endl;
-		cout << "Trapezoid? (1 - yes | 0 - no): " << isTrapezoid(lineE, lineF, lineG, lineH) << endl << endl;
-
+		quadType temp(lineE,lineF,lineG,lineH);
+		quad.push_back(temp);
 		lineNum++;
 	}
+	
 	fin.close();
-}*/
+	for (int coi = 0;coi < 3;coi++) {
+		printQuadInfo(quad.at(coi));
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	}
+
+}
 
 int main() {
 	introPrompt();
@@ -240,7 +201,7 @@ void mainMenu()
 			userInput();
 			break;
 		case 2:
-			//readFile();
+			readFile();
 			break;
 		case 3:
 			return; //Exits void function
@@ -253,4 +214,32 @@ void printLineInfo(lineType obj1) {
 	cout << "Slop-Intercept format of LINE: " << obj1.get_eqnYMXB() << "\n\n";
 	cout << "'A' value: " << obj1.get_a() << "\n'B' value: " << obj1.get_b() << "\n'c' value: " << obj1.get_c() << endl;
 	cout << "Standard Form of LINE: " << obj1.get_eqnABC() << "\n\n";
+}
+
+//call the getters except for shapeName
+void printQuadInfo(quadType obj1)
+{
+	obj1.get_isParallelogram();
+	if (obj1.get_isParallelogram() == true) {
+		cout << "THIS WORKS";
+	}
+	else {
+		cout << "not parallelogram";
+	}
+	obj1.get_isTrapezoid();
+	if (obj1.get_isTrapezoid() == true) {
+		cout << "This is a trapizod" << endl;
+	}
+	else {
+		cout << "Not a trap" << endl;
+	}
+	obj1.get_isRectangle();
+	
+	obj1.get_isRhombus();
+	obj1.get_isSquare();
+
+	obj1.get_intersect1();
+	obj1.get_intersect2();
+	obj1.get_intersect3();
+	obj1.get_intersect4();
 }
