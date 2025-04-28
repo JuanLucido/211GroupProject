@@ -126,6 +126,4 @@ bool isParallel(lineType obj1, lineType obj2);
 //Used to plot intersections of any 2 lines
 void plotIntersection(lineType objA, lineType objB, double& x1, double& y1);
 
-
-
 #endif

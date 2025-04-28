@@ -33,7 +33,7 @@ void userInput() {
 			<< "               LINE COMPARISON OPERATIONS\n\n"
 			<< "In this section you'll be creating 2 lines as they would be\n" 
 			<< "graphed on a Cartesian plane (i.e., Format: y = m * x + b)\n\n"
-			<< "Enter numbers only integer or decimal format (1, 1.0)\n\n....";
+			<< "Enter numbers only in integer or decimal format (1, 1.0)\n\n....";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		cout << "\n---------------------------------------------------------\n\n"
@@ -119,8 +119,8 @@ void readFile() {
 	
 	cout << "\n---------------------------------------------------------\n\n"
 		<< "           QUADRILATERAL ANALYSIS OPERATIONS\n\n"
-		<< "In this section you'll be reading in 3 sets of line data from\n"
-		<< "a text file containing 4 lines each in Ax + By = C format.\n\n"
+		<< "In this section you'll be reading in 3 sets of shapes from\n"
+		<< "a text file containing 4 lines- each in Ax + By = C format.\n\n"
 		<< "The intersection of these 4 lines will form a quadrilateral\nshape for analysis!"
 		<< "\n\n....";
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -244,9 +244,9 @@ bool entryFailed(char array[], int low, int high, int& choice) {
 void introPrompt()
 {
 	cout << "========== WELCOME TO Team T.G.F.Y's 211 Group Project 1.0 ==========\n\n"
-		<< "This programs helps analyze mathematical representations of 'lines',\ni.e., y = mx + b, by comparing them.\n\n"
+		<< "\nThis programs helps analyze mathematical representations of 'lines',\nEX: y = mx + b, by comparing them.\n\n\n"
 		<< "=====================================================================\n\n"
-		<< "Any time you see '...' the program stalled. Press [ENTER] to continue!\n\n...";
+		<< "Any time you see '...' the program is stalled. Press [ENTER] to continue!\n\n...";
 
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
@@ -305,7 +305,6 @@ void printLineInfo(lineType obj1) {
 	cout << "Standard Form Equation" << setw(6) << setfill('.') << "  " << obj1.get_eqnABC() << "\n\n";
 }
 
-//call the getters except for shapeName
 void printQuadInfo(quadType obj1)
 {
 	cout << "Is this shape a Parallelogram?";
