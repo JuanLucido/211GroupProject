@@ -1,2 +1,5 @@
 ﻿  GroupProject.cpp
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(302,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(303,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\GroupProject.cpp(304,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   CSC211GroupProject.vcxproj -> C:\Users\Juan\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe

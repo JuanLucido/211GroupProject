@@ -304,11 +304,15 @@ bool decimalFailed(char array[], double& choice) {
 	int postDec = NAN;
 	int loops = 0;
 	bool hasDec = false;
+	bool isNegative = false;
 
 	//First for loop check for erroneous user entry
 	for (int i = 0; i < strlen(array) - 1; i++) 
 	{
-		if (!isdigit(array[i]) && array[i] != '.')
+		if (array[i] == '-') {
+			isNegative = true;
+		}
+		else if (!isdigit(array[i]) && array[i] != '.')
 		{
 			cin.clear(); //clears error flags
 			cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...\n";
@@ -326,9 +330,13 @@ bool decimalFailed(char array[], double& choice) {
 			//postDec = i - decPos+1;
 		}
 	}
-	//500.123
+
 	for (int i = 0; i < strlen(array); i++)
 	{
+		if (isNegative == true && array[i] == '-') {
+			continue;
+		}
+		
 		if (array[i] == '.')
 		{
 			continue; //Go to next cycle of this 'for' loop
@@ -346,6 +354,10 @@ bool decimalFailed(char array[], double& choice) {
 			conversion += (static_cast<int>(array[i]) - 48) * pow(10, (decPos - i));
 		}
 		loops++;
+	}
+
+	if (isNegative == true) {
+		conversion *= -1;
 	}
 
 	choice = conversion; //sets conversion of character array to integer needed to menu/user
