@@ -1,0 +1,4 @@
+﻿  lineType.cpp
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\lineType.cpp(115,1): warning C4715: 'lineType::operator=': not all control paths return a value
+C:\Users\Juan\source\repos\211GroupProject\CSC211GroupProject\lineType.cpp(259,1): warning C4715: 'isPerpendicular': not all control paths return a value
+  CSC211GroupProject.vcxproj -> C:\Users\Juan\source\repos\211GroupProject\x64\Debug\CSC211GroupProject.exe

@@ -251,7 +251,12 @@ bool equalToEachOther(lineType obj1, lineType obj2)
 { return (obj1.get_m() == obj2.get_m() && obj1.get_y_intercept() == obj2.get_y_intercept()); }
 
 bool isPerpendicular(lineType obj1, lineType obj2)
-{ return (obj1.get_m() * obj2.get_m() < 0); }
+{ 
+	if (obj1.get_m() * obj2.get_m() == -1) {
+		return true;
+	}
+
+}
 
 bool isParallel(lineType obj1, lineType obj2)
 { return (obj1.get_m() == obj2.get_m()); }
