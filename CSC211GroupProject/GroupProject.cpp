@@ -17,6 +17,8 @@ void exitPrompt();
 
 void mainMenu();
 
+void opsComplete();
+
 void printLineInfo(lineType obj1);
 
 void printQuadInfo(quadType obj1);
@@ -30,75 +32,83 @@ void userInput() {
 		cout << "\n---------------------------------------------------------\n\n"
 			<< "               LINE COMPARISON OPERATIONS\n\n"
 			<< "In this section you'll be creating 2 lines as they would be\n" 
-			<< "graphed on a Cartesian plane (i.e., Format: y = m * x + b)\n\n...";
+			<< "graphed on a Cartesian plane (i.e., Format: y = m * x + b)\n\n"
+			<< "Enter numbers only integer or decimal format (1, 1.0)\n\n....";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		cout << "\n---------------------------------------------------------\n\n"
-			 << "FIRST LINE (Line A):\n"
-			 << "Enter a value for 'm' (slope) in integer or decimal format (1, 1.0).\n\n"
-			 << "Your new 'm' value: ";
+			<< "FIRST LINE (Line A):\n\n"
+			<< "Enter a value for 'm' (slope): ";
 		cin >> m1;
 
-		cout << "\n\nNow enter a value for 'b' (y-intercept).\n\n"
-			 << "Your new 'b' value: ";
+		cout << "\nNow enter a value for 'b' (y-intercept): ";
 		cin >> yInt1;
 		lineType lineA(m1, yInt1);
 
 		cout << "\n---------------------------------------------------------\n\n"
-			 << "SECOND LINE (Line B):\n"
-			 << "Enter a value for 'm' (slope) in either integer or decimal format (1, 1.0)\n\n"
-			 << "Your new 'm' value: ";
+			<< "SECOND LINE (Line A):\n\n"
+			<< "Enter a value for 'm' (slope): ";
 		cin >> m2;
 
-		cout << "\n\nNow enter a value for 'b' (y-intercept).\n\n"
-			<< "Your new 'b' value: ";
+		cout << "\nNow enter a value for 'b' (y-intercept): ";
 		cin >> yInt2;
 
 		lineType lineB(m2, yInt2);
 
 		cout << "\n---------------------------------------------------------\n\n"
-			 << "Here are the properties of your Lines:\n\n"; 
-		cout << "LineA:\n";
+			 << "Here are the properties of your Lines ..."; 
+		cout << "\n\nLineA:\n\n";
 		printLineInfo(lineA);
-		cout << "\nLineB:\n";
+
+		cout << "...";
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		cout << "\nLineB:\n\n";
 		printLineInfo(lineB);
 
+		cout << "...";
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		cout << "\n---------------------------------------------------------\n\n";
+
 		cout << "Comparison of LineA & LineB:\n\n"
-			<< "Equal to each other? : ";
+			<< "Equal to each other?";
 		if (equalToEachOther(lineA, lineB) == true) {
-			cout << "YES";
+			cout << setw(13) << setfill('.') << "YES";
 		}
 		else {
-			cout << "NO";
+			cout << setw(13) << setfill('.') << "NO";
 		}
-		cout << "\nPerpendicular to each other? : ";
+		cout << "\nPerpendicular to each other?";
 		if (isPerpendicular(lineA, lineB) == true) {
-			cout << "YES";
+			cout << setw(5) << setfill('.') << "YES";
 		}
 		else {
-			cout << "NO";
+			cout << setw(5) << setfill('.') << "NO";
 		}
-		cout << "\nParallel to each other? : ";
+		cout << "\nParallel to each other?";
 		if (isParallel(lineA, lineB) == true) {
-			cout << "YES";
+			cout << setw(10) << setfill('.') << "YES";
 		}
 		else {
-			cout << "NO";
+			cout << setw(10) << setfill('.') << "NO";
 		}
 		
 		double x = 0.0, y = 0.0;
 		plotIntersection(lineA, lineB, x, y);
 
-		cout << "\nDo they intersect? : ";
+		cout << "\nDo they intersect?";
 		if (isParallel(lineA, lineB) == false) {
-			cout << "YES. Intersection Point is at.... (" << x << ", " << y << " )\n";
+			cout << setw(13) << setfill('.') << "" <<"YES, Intersection Point at: ( " << x << ", " << y << " )\n";
 		}
 		else {
-			cout << "NO. Both lines are parallel and will NEVER intersect!!!\n";
+			cout << setw(16) << setfill('.') << "NO\n";
 		}
 		cout << "\n...";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		opsComplete();
 		break;
 	}
 }
@@ -106,6 +116,19 @@ void userInput() {
 void readFile() {
 	vector<quadType> quad;
 	ifstream fin("sets_of_lines.txt");
+	
+	cout << "\n---------------------------------------------------------\n\n"
+		<< "           QUADRILATERAL ANALYSIS OPERATIONS\n\n"
+		<< "In this section you'll be reading in 3 sets of line data from\n"
+		<< "a text file containing 4 lines each in Ax + By = C format.\n\n"
+		<< "The intersection of these 4 lines will form a quadrilateral\nshape for analysis!"
+		<< "\n\n....";
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	
+	cout << "\n---------------------------------------------------------\n\n"
+		<< "Reading in 'sets_of_Lines.txt' file data now ...";
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 	if (!fin.is_open()) {
 		cerr << "Error: Unable to open file." << endl;
 		
@@ -132,8 +155,59 @@ void readFile() {
 		cout << "Here's Quadrilateral " << coi+1 << "'s Information:\n\n";
 		printQuadInfo(quad.at(coi));
 
-	}
+		cout << "...";
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+		char selection[MAX_SIZE];
+		int choice;
+		int low = 1; //locally defined lower and upper limits
+		int high = 2;
+
+		do {
+			cout << "\n\nWould you like to see Quadrilateral [" << coi+1 << "]'s line data ? \n\n"
+				<< "1. YES\n"
+				<< "2. NO (continues to next Quadrilateral)\n\n"
+				<< "Your choice: ";
+
+			cin.getline(selection, MAX_SIZE);
+
+		} while (entryFailed(selection, low, high, choice));
+
+		switch(choice) {
+		case 1: {
+			cout << "\n---------------------------------------------------------\n\n";
+			cout << endl << "---------  Quadrilateral [" << coi + 1 << "]'s Line 1  ---------\n\n";
+			printLineInfo(quad.at(coi).line1);
+			cout << "\n[ENTER] to continue to next line ...";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			cout << endl << "\n---------  Quadrilateral [" << coi + 1 << "]'s Line 2  ---------\n\n";
+			printLineInfo(quad.at(coi).line2);
+			cout << "...";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			cout << endl << "\n---------  Quadrilateral [" << coi + 1 << "]'s Line 3  ---------\n\n";
+			printLineInfo(quad.at(coi).line3);
+			cout << "...";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			cout << endl << "\n---------  Quadrilateral [" << coi + 1 << "]'s Line 4  ---------\n\n";
+			printLineInfo(quad.at(coi).line4);
+			cout << "...";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+		case 2: {
+			if (coi == 2) {
+				cout << "\n\nEnd of file data reached ...";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				continue;
+			}
+			cout << "\n\nContinuing to Quadrilateral [" << coi + 2 <<"] ...";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+		}
+	}
+	opsComplete();
 }
 
 int main() {
@@ -197,7 +271,7 @@ void mainMenu()
 				<< "               WELCOME TO THE MAIN MENU\n\n"
 				<< "What would you like to do?\n\n"
 				<< "1. Compare 2 Lines via Slope-Intercept (y = mx + b)\n"
-				<< "2. Read in Line data from 'sets_of_Lines.txt' for shape identification\n"
+				<< "2. Read 'sets_of_Lines.txt' for quadrilateral analysis\n"
 				<< "3. Exit\n\n"
 				<< "Your choice: ";
 
@@ -218,50 +292,56 @@ void mainMenu()
 	}
 }
 
+void opsComplete() { //Alerts user that the action they performed completed
+	cout << "\n---------------------------------------------------------\n\n";
+	cout << "Operation complete! Now returning to the previous menu ...";
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 void printLineInfo(lineType obj1) {
-	cout << "'m' value (slope): \t" << setw(7) << obj1.get_m() << "\n'b' value (y-intercept): \t" << obj1.get_y_intercept() << endl;
-	cout << "Slop-Intercept format of LINE: " << obj1.get_eqnYMXB() << "\n\n";
-	cout << "'A' value: " << obj1.get_a() << "\n'B' value: " << obj1.get_b() << "\n'c' value: " << obj1.get_c() << endl;
-	cout << "Standard Form of LINE: " << obj1.get_eqnABC() << "\n\n";
+	cout << "'m' value (slope)" << setw(11) << setfill('.') << "  " << obj1.get_m() << "\n'b' value (y-intercept)" << setw(5) << setfill('.') << "  " << obj1.get_y_intercept() << endl;
+	cout << "Slop-Intercept Equation" << setw(5) << setfill('.') << "  " << obj1.get_eqnYMXB() << "\n\n";
+	cout << "'A' value" << setw(19) << setfill('.') << "  " << obj1.get_a() << "\n'B' value" << setw(19) << setfill('.') << "  " << obj1.get_b() << "\n'C' value" << setw(19) << setfill('.') << "  " << obj1.get_c() << endl;
+	cout << "Standard Form Equation" << setw(6) << setfill('.') << "  " << obj1.get_eqnABC() << "\n\n";
 }
 
 //call the getters except for shapeName
 void printQuadInfo(quadType obj1)
 {
-	cout << "Is this shape a Parallelogram? ";
+	cout << "Is this shape a Parallelogram?";
 	if (obj1.get_isParallelogram() == true) {
-		cout << "\tYES\n";
+		cout << setw(3) << setfill('.') << " " << "YES\n";
 	}
 	else {
-		cout << "\tNO\n";
+		cout << setw(3) << setfill('.') << " " << "NO\n";
 	}
-	cout << "Is this shape a Trapezoid? ";
+	cout << "Is this shape a Trapezoid?";
 	if (obj1.get_isTrapezoid() == true) {
-		cout << "\tYES\n";
+		cout << setw(7) << setfill('.') << " " << "YES\n";
 	}
 	else {
-		cout << "\tNO\n";
+		cout << setw(7) << setfill('.') << " " << "NO\n";
 	}
-	cout << "Is this shape a Rectangle? ";
+	cout << "Is this shape a Rectangle?";
 	if (obj1.get_isRectangle() == true) {
-		cout << "\tYES\n";
+		cout << setw(7) << setfill('.') << " " << "YES\n";
 	}
 	else {
-		cout << "\tNO\n";
+		cout << setw(7) << setfill('.') << " " << "NO\n";
 	}
-	cout << "Is this shape a Rhombus? ";
+	cout << "Is this shape a Rhombus?";
 	if (obj1.get_isRhombus() == true) {
-		cout << "\tYES\n";
+		cout << setw(9) << setfill('.') << " " << "YES\n";
 	}
 	else {
-		cout << "\tNO\n";
+		cout << setw(9) << setfill('.') << " " << "NO\n";
 	}
-	cout << "Is this shape a Square? ";
+	cout << "Is this shape a Square?";
 	if (obj1.get_isSquare() == true) {
-		cout << "\tYES\n";
+		cout << setw(10) << setfill('.') << " " << "YES\n";
 	}
 	else {
-		cout << "\tNO\n";
+		cout << setw(10) << setfill('.') << " " << "NO\n";
 	}
 
 	obj1.printIntersectionPoints();

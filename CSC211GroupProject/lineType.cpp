@@ -157,7 +157,7 @@ void quadType::setIntersections(lineType objA, lineType objB, lineType objC, lin
 
 void quadType::printIntersectionPoints()
 {
-	cout << "\nIntersection points as would be seen on a 2-D Cartesian Plane:\n\n"
+	cout << "\nIntersection points on 2-D Cartesian Plane:\n\n"
 		 << get_intersect1() << endl << get_intersect2() << endl
 		 << get_intersect3() << endl << get_intersect4() << endl << endl;
 }
