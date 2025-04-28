@@ -166,6 +166,14 @@ double quadType::calcDistance(lineType obj1, lineType obj2, lineType obj3)
 {
 	double x1, x2, y1, y2, distance;
 
+	//double otherM, otherB;
+	//otherM = -1 * objB.get_a() / objB.get_b();
+	//otherB = objB.get_c() / objB.get_b();
+
+	//if (obj1.get_m() == obj3.get_m()) {
+
+	//}
+
 	//Find (x, y) coordinate when f(x) - g(x) = 0, where solving for x gives y
 	//The following is algebra for solving mx + b = mx + b, against Line [1 or 2] vs Line 3 & 4
 	x1 = (obj2.get_y_intercept() - obj1.get_y_intercept()) / (obj1.get_m() - obj2.get_m()); //
@@ -184,8 +192,8 @@ void quadType::parallelogramTest(lineType objA, lineType objB, lineType objC, li
 	// (calcDistance(objA, objC, objB) == calcDistance(objB, objC, objD))
 	if (isParallel(objA, objB) == true && isParallel(objC, objD) == true) 
 	{
-		double distance1 = calcDistance(objA, objC, objB);
-		double distance2 = calcDistance(objB, objD, objB);
+		double distance1 = calcDistance(objA, objC, objD);
+		double distance2 = calcDistance(objB, objD, objC);
 		
 		if (distance1 == distance2) {
 			set_isParallelogram(true);
@@ -216,9 +224,15 @@ void quadType::rectangleTest(lineType objA, lineType objB, lineType objC, lineTy
 
 void quadType::rhombusTest(lineType obj1, lineType obj2, lineType obj3, lineType obj4)
 {
-	if (calcDistance(obj3, obj1, obj2) == calcDistance(obj1, obj3, obj4) 
-		== calcDistance(obj2, obj3, obj4) == calcDistance(obj4, obj1, obj2)) {
-		set_isRhombus(true);
+	double distance1, distance2, distance3, distance4;
+	
+	distance1 = calcDistance(obj1, obj3, obj4);
+	distance2 = calcDistance(obj1, obj3, obj4);
+	distance3 = calcDistance(obj2, obj3, obj4);
+	distance4 = calcDistance(obj4, obj1, obj2);
+
+	if (distance1 == distance2 && distance1 == distance3 && distance1 == distance4) { 
+			set_isRhombus(true);
 	}
 	else { set_isRhombus(false); }
 }
