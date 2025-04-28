@@ -5,11 +5,14 @@
 #include <fstream>
 #include <iomanip>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 const int MAX_SIZE = 5000; //Global variable for max size of user-entered char array
 
 bool entryFailed(char array[], int low, int high, int& choice);
+
+bool decimalFailed(char array[], double& choice);
 
 void introPrompt();
 
@@ -36,22 +39,73 @@ void userInput() {
 			<< "Enter numbers only in integer or decimal format (1, 1.0)\n\n....";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-		cout << "\n---------------------------------------------------------\n\n"
-			<< "FIRST LINE (Line A):\n\n"
-			<< "Enter a value for 'm' (slope): ";
-		cin >> m1;
+		char input[MAX_SIZE];
+		double decimal;
 
-		cout << "\nNow enter a value for 'b' (y-intercept): ";
-		cin >> yInt1;
+		cout << "\n---------------------------------------------------------\n\n"
+			<< "FIRST LINE (Line A):\n\n";
+
+		do {
+			cout << "Enter Line A's 'm' value (slope): ";
+
+			cin.getline(input, MAX_SIZE);
+			if (cin.fail()) {
+				cin.clear(); //clears error flags
+				cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...\n";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				continue;
+			}
+		} while (decimalFailed(input, decimal)); //Checks validity of user input
+		
+		m1 = decimal;
+
+		do {
+			cout << "\nNow Line A's 'b' value (y-intercept): ";
+
+			cin.getline(input, MAX_SIZE);
+			if (cin.fail()) {
+				cin.clear(); //clears error flags
+				cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...\n";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				continue;
+			}
+		} while (decimalFailed(input, decimal)); //Checks validity of user input
+
+		yInt1 = decimal;
+
 		lineType lineA(m1, yInt1);
 
 		cout << "\n---------------------------------------------------------\n\n"
-			<< "SECOND LINE (Line A):\n\n"
-			<< "Enter a value for 'm' (slope): ";
-		cin >> m2;
+			<< "SECOND LINE (Line B):\n\n";
 
-		cout << "\nNow enter a value for 'b' (y-intercept): ";
-		cin >> yInt2;
+		do {
+			cout << "Enter Line B's 'm' value (slope): ";
+
+			cin.getline(input, MAX_SIZE);
+			if (cin.fail()) {
+				cin.clear(); //clears error flags
+				cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...\n";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				continue;
+			}
+		} while (decimalFailed(input, decimal)); //Checks validity of user input
+
+		m2 = decimal;
+
+
+		do {
+			cout << "\nEnter Line B's 'b' value (y-intercept): ";
+
+			cin.getline(input, MAX_SIZE);
+			if (cin.fail()) {
+				cin.clear(); //clears error flags
+				cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...\n";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				continue;
+			}
+		} while (decimalFailed(input, decimal)); //Checks validity of user input
+
+		yInt2 = decimal;
 
 		lineType lineB(m2, yInt2);
 
@@ -61,7 +115,6 @@ void userInput() {
 		printLineInfo(lineA);
 
 		cout << "...";
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		cout << "\nLineB:\n\n";
@@ -82,7 +135,7 @@ void userInput() {
 		}
 		cout << "\nPerpendicular to each other?";
 		if (isPerpendicular(lineA, lineB) == true) {
-			cout << setw(5) << setfill('.') << "YES";
+			cout << setw(6) << setfill('.') << "YES";
 		}
 		else {
 			cout << setw(5) << setfill('.') << "NO";
@@ -134,9 +187,9 @@ void readFile() {
 		
 	}
 	//shows which set of numbers its being read in from
-	int lineNum = 1;
+	int loops = 0;
 	double a, b, c, e, f, g, h, i, j, k, l, m;
-	for (int coi = 0;coi < 3;coi++) {
+	while (!fin.eof()) {
 		fin >> a >> b >> c >> e >> f >> g >> h >> i >> j >> k >> l >> m;
 		lineType lineE(a, b, c);
 		lineType lineF(e, f, g);
@@ -146,11 +199,11 @@ void readFile() {
 
 		quadType temp(lineE,lineF,lineG,lineH);
 		quad.push_back(temp);
-		lineNum++;
+		loops++;
 	}
 
 	fin.close();
-	for (int coi = 0;coi < 3;coi++) {
+	for (int coi = 0;coi < loops;coi++) {
 		cout << "\n---------------------------------------------------------\n\n";
 		cout << "Here's Quadrilateral " << coi+1 << "'s Information:\n\n";
 		printQuadInfo(quad.at(coi));
@@ -197,7 +250,7 @@ void readFile() {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
 		case 2: {
-			if (coi == 2) {
+			if (coi == loops - 1) {
 				cout << "\n\nEnd of file data reached ...";
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				continue;
@@ -241,6 +294,65 @@ bool entryFailed(char array[], int low, int high, int& choice) {
 	}
 }
 
+//Returns true/false within while loop parentheses; only works on decimal entry
+bool decimalFailed(char array[], double& choice) {
+
+	double conversion = 0.0;
+
+	int decPos = NAN;
+	int preDec = NAN;
+	int postDec = NAN;
+	int loops = 0;
+	bool hasDec = false;
+
+	//First for loop check for erroneous user entry
+	for (int i = 0; i < strlen(array) - 1; i++) 
+	{
+		if (!isdigit(array[i]) && array[i] != '.')
+		{
+			cin.clear(); //clears error flags
+			cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...\n";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			return true;
+		}
+		else if (array[i] == '.')
+		{
+			decPos = i;
+			preDec = i - 1;
+			hasDec = true;
+		}
+		else if (i == strlen(array) - 2) 
+		{
+			//postDec = i - decPos+1;
+		}
+	}
+	//500.123
+	for (int i = 0; i < strlen(array); i++)
+	{
+		if (array[i] == '.')
+		{
+			continue; //Go to next cycle of this 'for' loop
+		}
+		else if (hasDec == false) //Converts whole numbers w/out decimal
+		{
+			conversion += (static_cast<int>(array[i]) - 48) * pow(10, (strlen(array) - i-1));
+		}
+		else if (i < decPos)
+		{
+			conversion += (static_cast<int>(array[i]) - 48) * pow(10, (preDec-i));
+		}
+		else if (i > decPos)
+		{
+			conversion += (static_cast<int>(array[i]) - 48) * pow(10, (decPos - i));
+		}
+		loops++;
+	}
+
+	choice = conversion; //sets conversion of character array to integer needed to menu/user
+	return false;
+
+}
+
 void introPrompt()
 {
 	cout << "========== WELCOME TO Team T.G.F.Y's 211 Group Project 1.0 ==========\n\n"
@@ -276,7 +388,12 @@ void mainMenu()
 				<< "Your choice: ";
 
 			cin.getline(selection, MAX_SIZE);
-
+			if (cin.fail()) {
+				cin.clear(); //clears error flags
+				cerr << "\nINVALID INPUT! Enter ONLY what the prompt says!!! ...";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				continue;
+			}
 		} while (entryFailed(selection, low, high, choice)); //Checks validity of user input
 
 		switch (choice) {
