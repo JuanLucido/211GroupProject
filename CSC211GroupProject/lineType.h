@@ -5,7 +5,6 @@
 #include <string>
 using namespace std;
 
-
 class lineType { //Creates line 'objects'
 private:
 	double m, y_intercept;	//Part 1 variables
@@ -49,7 +48,6 @@ public:
 
 	//Overload Assignment Operator ( = ); Used when loading lines to quadType object in Part 2
 	lineType& operator=(const lineType& source);
-
 };
 
 class quadType { //Quadrilateral composed from comparison of 'lineType objects' intersecting
